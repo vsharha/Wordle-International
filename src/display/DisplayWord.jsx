@@ -1,14 +1,16 @@
 import DisplayLetter from "./DisplayLetter.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCurrentGuess,
   getGuesses,
   getMessage,
   getWordLength,
   getWordToGuess,
+  setKeyboardDisabled,
 } from "../wordleSlice.js";
 import { twMerge } from "tailwind-merge";
 import { useEffect, useRef, useState } from "react";
+import display from "./Display.jsx";
 
 function countChar(str, char) {
   let count = 0;
@@ -28,15 +30,22 @@ function DisplayWord({ word, wordIndex }) {
   //rotate anim
   const [rotateIndex, setRotateIndex] = useState(null);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (guesses.length !== 0 && wordIndex === guesses.length - 1) {
+      dispatch(setKeyboardDisabled(true));
       setRotateIndex(0);
     }
-  }, [wordIndex, guesses.length]);
+  }, [wordIndex, guesses.length, dispatch]);
 
   function onRotateEnd() {
     setRotateIndex((i) => {
-      return i < word.length ? i + 1 : null;
+      if (i < word.length - 1) return i + 1;
+      else {
+        dispatch(setKeyboardDisabled(false));
+        return null;
+      }
     });
   }
 
@@ -55,29 +64,28 @@ function DisplayWord({ word, wordIndex }) {
   function getColors() {
     if (isCurrent || !word) return [];
 
-    let colors = [];
+    let colors = Array(wordLength).fill("guessed");
+    let used = Array(wordLength).fill(false);
 
     for (let i = 0; i < wordLength; i++) {
       if (word.at(i) === wordToGuess.at(i)) {
-        colors.push("correct");
-      } else if (wordToGuess.includes(word.at(i))) {
-        colors.push("present");
-      } else {
-        colors.push("guessed");
+        colors[i] = "correct";
+        used[i] = true;
       }
     }
 
-    // deduplication
     for (let i = 0; i < wordLength; i++) {
-      if (
-        colors.filter(
-          (color, j) => word.at(j) === word.at(i) && (color === "correct" || color === "present"),
-        ).length <
-        countChar(wordToGuess, word.at(i)) - colors.filter((color) => color === "correct").length
-      ) {
-        colors[i] = "guessed";
+      if (colors[i] === "guessed") {
+        for (let j = 0; j < wordLength; j++) {
+          if (!used[j] && word.at(i) === wordToGuess.at(j)) {
+            colors[i] = "present";
+            used[j] = true;
+            break;
+          }
+        }
       }
     }
+
     return colors;
   }
 

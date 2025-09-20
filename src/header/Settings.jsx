@@ -2,7 +2,12 @@ import Toggle from "./Toggle.jsx";
 import useDarkmode from "../shared/useDarkmode.js";
 import Range from "./Range.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { getMaxAttempts, getWordLength, setMaxAttempts, setWordLength } from "../wordleSlice.js";
+import {
+  getMaxAttempts,
+  getWordLength,
+  updateMaxAttempts,
+  updateWordLength,
+} from "../wordleSlice.js";
 import Modal from "../ui/Modal.jsx";
 import { RxCross2 } from "react-icons/rx";
 
@@ -28,10 +33,10 @@ function Settings({ open, setIsOpen }) {
         <Toggle value={isDark} setValue={setIsDark}>
           Dark Theme
         </Toggle>
-        <Range min={2} max={8} value={wordLength} setValue={(v) => dispatch(setWordLength(v))}>
+        <Range min={2} max={8} value={wordLength} setValue={(v) => dispatch(updateWordLength(v))}>
           Word length
         </Range>
-        <Range min={4} max={8} value={maxAttempts} setValue={(v) => dispatch(setMaxAttempts(v))}>
+        <Range min={4} max={8} value={maxAttempts} setValue={(v) => dispatch(updateMaxAttempts(v))}>
           Max attempts
         </Range>
       </div>

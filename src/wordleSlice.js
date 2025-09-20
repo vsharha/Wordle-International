@@ -5,11 +5,12 @@ const initialState = {
     guesses: [],
     currentGuess: "",
     maxAttempts: 6,
-    wordLength: 5,
+    wordLength: 6,
     status: "idle",
     message: "",
     wordToGuess: "",
     darkMode: true,
+    keyboardDisabled: false,
 };
 
 const wordleSlice = createSlice({
@@ -27,6 +28,10 @@ const wordleSlice = createSlice({
             state.status = "playing";
         },
         updateCurrentGuess(state, action) {
+            if (state.keyboardDisabled) {
+                return;
+            }
+
             if (state.status !== "playing") {
                 return;
             }
@@ -83,6 +88,16 @@ const wordleSlice = createSlice({
         setDarkMode(state, action) {
             state.darkMode = action.payload;
         },
+        setKeyboardDisabled(state, action) {
+            state.keyboardDisabled = action.payload;
+        },
+        reset(state) {
+            return {
+                ...initialState,
+                wordLength: state.wordLength,
+                maxAttempts: state.maxAttempts,
+            };
+        },
     },
 });
 
@@ -95,14 +110,25 @@ export const getWordToGuess = (state) => state.wordle.wordToGuess;
 export const getMessage = (state) => state.wordle.message;
 export const getIsDarkMode = (state) => state.wordle.darkMode;
 
+export const updateWordLength = (length) => (dispatch) => {
+    dispatch({ type: "wordle/reset" });
+    dispatch({ type: "wordle/setWordLength", payload: Number(length) });
+    dispatch({ type: "wordle/startGame" });
+};
+
+export const updateMaxAttempts = (attempts) => (dispatch) => {
+    dispatch({ type: "wordle/reset" });
+    dispatch({ type: "wordle/setMaxAttempts", payload: Number(attempts) });
+    dispatch({ type: "wordle/startGame" });
+};
+
 export const {
     clearMessage,
     startGame,
     updateCurrentGuess,
     submitCurrentGuess,
-    setWordLength,
-    setMaxAttempts,
     setDarkMode,
+    setKeyboardDisabled,
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;
