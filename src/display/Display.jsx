@@ -25,9 +25,9 @@ function Display() {
   const normalised = getNormalisedArray(guesses);
 
   return (
-    <div className="flex flex-col gap-1.5 w-full">
+    <div className="flex flex-col gap-1.5 w-full justify-center">
       {normalised.map((guess, i) => (
-        <DisplayWord word={guess} key={i} current={i === guesses.length} />
+        <DisplayWord word={guess} key={i} wordIndex={i} />
       ))}
     </div>
   );
