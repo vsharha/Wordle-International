@@ -4,6 +4,7 @@ import Range from "./Range.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getMaxAttempts, getWordLength, setMaxAttempts, setWordLength } from "../wordleSlice.js";
 import Modal from "../ui/Modal.jsx";
+import { RxCross2 } from "react-icons/rx";
 
 function Settings({ open, setIsOpen }) {
   const { isDark, setIsDark } = useDarkmode();
@@ -16,11 +17,12 @@ function Settings({ open, setIsOpen }) {
 
   return (
     <Modal open={open} onClose={() => setIsOpen(false)}>
-      <div
-        className="inset-0 m-auto bg-back z-10 dark:bg-back-dark text-font dark:text-font-dark p-3 rounded-lg w-1/2 shadow-xl w-9/10 md:w-150"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h2 className="font-bold uppercase text-center">Settings</h2>
+      <div className="bg-back dark:bg-back-dark text-font dark:text-font-dark p-3 rounded-lg w-full">
+        <div className="relative flex items-center justify-center pb-5">
+          <h2 className="font-bold uppercase text-center">Settings</h2>
+          <RxCross2 size={24} className="absolute right-2" />
+        </div>
+
         <Toggle value={isDark} setValue={setIsDark}>
           Dark Theme
         </Toggle>
