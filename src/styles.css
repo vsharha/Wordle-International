@@ -6,8 +6,6 @@
     --color-back: theme(--color-white);
     --color-back-dark: theme(--color-neutral-900);
 
-    --spacing-screen: 100dvh;
-
     --color-button: theme(--color-gray-200);
     --color-button-dark: theme(--color-neutral-400);
 
@@ -86,5 +84,8 @@
 
     .input-element {
         @apply w-full flex justify-between border-b border-border dark:border-border-dark py-3
+    }
+    .h-screen-dynamic {
+        height:100dvh
     }
 }

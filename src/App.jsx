@@ -40,7 +40,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <main className="flex flex-col justify-center items-center gap-3 h-screen md:h-fit">
+    <main className="flex flex-col justify-center items-center gap-3 h-screen-dynamic md:h-fit">
       <Header />
       <div className="flex flex-col gap-3 h-full justify-between md:h-fit">
         <Display />
