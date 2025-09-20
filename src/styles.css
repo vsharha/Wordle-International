@@ -60,13 +60,13 @@
         }
 
         50% {
-            transform: scaleY(0.05);
+            transform: scaleY(0.02);
         }
     }
 
     --animate-shake: shake 0.25s linear;
     --animate-pop-in: pop-in 0.1s linear;
-    --animate-rotate: rotate 0.35s ease-in-out;
+    --animate-rotate: rotate 0.35s linear;
 }
 
 @layer components {

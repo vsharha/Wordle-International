@@ -6,6 +6,8 @@ function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd }) {
   const [doPopIn, setDoPopIn] = useState(popIn);
   const [doRotate, setDoRotate] = useState(rotate);
 
+  const [hasRotated, setHasRotated] = useState(false);
+
   useEffect(() => {
     if (popIn) {
       setDoPopIn(true);
@@ -20,6 +22,11 @@ function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd }) {
 
   return (
     <span
+      onAnimationStart={(e) => {
+        if (e.animationName === "rotate") {
+          setHasRotated(true);
+        }
+      }}
       onAnimationEnd={(e) => {
         if (e.animationName === "pop-in") {
           setDoPopIn(false);
@@ -32,7 +39,7 @@ function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd }) {
       className={twMerge(
         "uppercase flex items-center justify-center aspect-square h-full border-2 border-border font-bold dark:border-border-dark text-3xl text-font dark:text-font-dark",
         letter ? "border-border-letter dark:border-border-letter-dark" : "",
-        color ? themeColors[color] : "",
+        color && hasRotated ? themeColors[color] : "",
         doPopIn ? "animate-pop-in" : "",
         doRotate ? "animate-rotate" : "",
       )}
