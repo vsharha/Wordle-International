@@ -69,7 +69,7 @@ const wordleSlice = createSlice({
 
             if (state.guesses.length === state.maxAttempts) {
                 state.status = "lost";
-                state.message = state.wordToGuess;
+                state.message = state.wordToGuess.toUpperCase();
 
                 return;
             }

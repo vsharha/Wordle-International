@@ -1,6 +1,7 @@
 import KeyboardLine from "./KeyboardLine.jsx";
 import { useSelector } from "react-redux";
 import { getWordToGuess } from "../wordleSlice.js";
+import Message from "../ui/Message.jsx";
 
 function Keyboard() {
   const keyboard = [
@@ -14,7 +15,7 @@ function Keyboard() {
   function getColors() {}
 
   return (
-    <div className="flex items-center justify-center flex-col gap-2 w-screen px-2">
+    <div className="flex items-center justify-center flex-col gap-2 w-screen px-2 pb-4 md:pb-0">
       {keyboard.map((line, i) => (
         <KeyboardLine line={line} key={line} addSpace={i === 1} />
       ))}
