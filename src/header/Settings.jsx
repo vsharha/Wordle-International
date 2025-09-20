@@ -18,9 +18,11 @@ function Settings({ open, setIsOpen }) {
   return (
     <Modal open={open} onClose={() => setIsOpen(false)}>
       <div className="bg-back dark:bg-back-dark text-font dark:text-font-dark p-3 rounded-lg w-full">
-        <div className="relative flex items-center justify-center pb-5">
+        <div className="relative flex items-center justify-center pb-7">
           <h2 className="font-bold uppercase text-center">Settings</h2>
-          <RxCross2 size={24} className="absolute right-2" />
+          <button onClick={() => setIsOpen(false)} className="absolute right-2 top-2">
+            <RxCross2 size={24} />
+          </button>
         </div>
 
         <Toggle value={isDark} setValue={setIsDark}>
