@@ -6,6 +6,8 @@
     --color-back: theme(--color-white);
     --color-back-dark: theme(--color-neutral-900);
 
+    --spacing-screen: 100dvh;
+
     --color-button: theme(--color-gray-200);
     --color-button-dark: theme(--color-neutral-400);
 
