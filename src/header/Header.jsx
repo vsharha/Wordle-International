@@ -11,7 +11,7 @@ function Header() {
   const { isDark, setIsDark } = useDarkmode();
 
   return (
-    <header className="border-b-1 w-screen border-border dark:border-border-dark flex items-center justify-between h-12 px-2">
+    <header className="border-b-1 w-screen border-border dark:border-border-dark flex items-center justify-between h-12 md:px-2">
       <HeaderButton>
         <GiHamburgerMenu size={20} />
       </HeaderButton>
@@ -23,7 +23,7 @@ function Header() {
           <IoMdSettings size={35} onClick={() => setAreSettingsOpen((open) => !open)} />
         </HeaderButton>
       </div>
-      <Settings open={areSettingsOpen} />
+      <Settings open={areSettingsOpen} setIsOpen={setAreSettingsOpen} />
     </header>
   );
 }

@@ -85,6 +85,7 @@
     .input-element {
         @apply w-full flex justify-between border-b border-border dark:border-border-dark py-3
     }
+
     .h-screen-dynamic {
         height:100dvh
     }

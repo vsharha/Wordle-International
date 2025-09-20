@@ -15,7 +15,7 @@ function Keyboard() {
   function getColors() {}
 
   return (
-    <div className="flex items-center justify-center flex-col gap-2 w-screen px-2 pb-4 md:pb-0">
+    <div className="flex items-center justify-center flex-col gap-2 w-screen px-2 pb-3 md:pb-0">
       {keyboard.map((line, i) => (
         <KeyboardLine line={line} key={line} addSpace={i === 1} />
       ))}
