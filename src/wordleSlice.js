@@ -5,7 +5,7 @@ const initialState = {
     guesses: [],
     currentGuess: "",
     maxAttempts: 6,
-    wordLength: 6,
+    wordLength: 5,
     status: "idle",
     message: "",
     wordToGuess: "",
@@ -94,6 +94,7 @@ const wordleSlice = createSlice({
         reset(state) {
             return {
                 ...initialState,
+                message: "Game has been reset",
                 wordLength: state.wordLength,
                 maxAttempts: state.maxAttempts,
             };
