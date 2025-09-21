@@ -3,7 +3,6 @@ import Display from "./display/Display.jsx";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { startGame, submitCurrentGuess, updateCurrentGuess } from "./wordleSlice.js";
-import Message from "./ui/Message.jsx";
 import Header from "./header/Header.jsx";
 
 function App() {

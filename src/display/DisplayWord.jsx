@@ -5,11 +5,10 @@ import { twMerge } from "tailwind-merge";
 import useShake from "../animation/useShake.js";
 import useRotate from "../animation/useRotate.js";
 import usePopIn from "../animation/usePopIn.js";
-import getColors from "../shared/getColors.js";
+import { useColors } from "../shared/useColors.js";
 
 function DisplayWord({ word, wordIndex }) {
   const wordLength = useSelector(getWordLength);
-  const wordToGuess = useSelector(getWordToGuess);
   const guesses = useSelector(getGuesses);
   const isCurrent = wordIndex === guesses.length;
 
@@ -17,7 +16,7 @@ function DisplayWord({ word, wordIndex }) {
   const { shake, onShakeEnd } = useShake(isCurrent);
   const { popInIndex } = usePopIn(word, isCurrent);
 
-  let colorMap = getColors(wordLength, wordToGuess, isCurrent, word);
+  let colorMap = useColors(isCurrent, word);
 
   return (
     <div

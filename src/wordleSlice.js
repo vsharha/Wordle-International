@@ -48,6 +48,10 @@ const wordleSlice = createSlice({
             }
         },
         submitCurrentGuess(state) {
+            if (state.keyboardDisabled) {
+                return;
+            }
+
             if (state.status !== "playing") {
                 return;
             }

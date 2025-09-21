@@ -1,4 +1,10 @@
-export default function getColors(wordLength, wordToGuess, isCurrent, word) {
+import { useSelector } from "react-redux";
+import { getWordLength, getWordToGuess } from "../wordleSlice.js";
+
+export function useColors(isCurrent, word) {
+    const wordLength = useSelector(getWordLength);
+    const wordToGuess = useSelector(getWordToGuess);
+
     if (isCurrent || !word) return [];
 
     let colors = Array(wordLength).fill("guessed");
@@ -25,3 +31,5 @@ export default function getColors(wordLength, wordToGuess, isCurrent, word) {
 
     return colors;
 }
+
+export function useKeyboardColors() {}

@@ -1,4 +1,3 @@
-import { FaBackspace } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 import { submitCurrentGuess, updateCurrentGuess } from "../wordleSlice.js";
 import { useDispatch } from "react-redux";

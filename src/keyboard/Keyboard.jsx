@@ -1,7 +1,6 @@
 import KeyboardLine from "./KeyboardLine.jsx";
 import { useSelector } from "react-redux";
 import { getWordToGuess } from "../wordleSlice.js";
-import Message from "../ui/Message.jsx";
 
 function Keyboard() {
   const keyboard = [
