@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getGuesses, getWordLength, getWordToGuess } from "../wordleSlice.js";
+import { getGuesses, getWordToGuess } from "../wordleSlice.js";
 
 function getColors(wordToGuess, word) {
     let colors = Array(word.length).fill("guessed");
@@ -43,6 +43,12 @@ export function useKeyboardColors() {
 
     let keyboardColorMap = {};
     for (let colorMap of guesses.map((guess) => getColors(wordToGuess, guess))) {
-        console.log(colorMap);
+        for (let { letter, color } of colorMap) {
+            keyboardColorMap[letter] = color;
+        }
     }
+
+    console.log(keyboardColorMap);
+
+    return keyboardColorMap;
 }
