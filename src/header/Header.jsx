@@ -1,9 +1,8 @@
 import { IoMdSettings } from "react-icons/io";
-import { GiHamburgerMenu } from "react-icons/gi";
 import HeaderButton from "./HeaderButton.jsx";
 import Settings from "./Settings.jsx";
 import { useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa6";
+import { FaMoon, FaRegCircleQuestion, FaSun } from "react-icons/fa6";
 import useDarkmode from "../hooks/useDarkmode.js";
 
 function Header() {
@@ -13,7 +12,7 @@ function Header() {
   return (
     <header className="border-b-1 w-screen border-border dark:border-border-dark flex items-center justify-between h-12 md:px-2">
       <HeaderButton>
-        <GiHamburgerMenu size={20} />
+        <FaRegCircleQuestion size={20} />
       </HeaderButton>
       <div className="flex items-center justify-center h-full">
         <HeaderButton onClick={() => setIsDark(!isDark)}>
