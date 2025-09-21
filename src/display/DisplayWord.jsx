@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 import useShake from "../animation/useShake.js";
 import useRotate from "../animation/useRotate.js";
 import usePopIn from "../animation/usePopIn.js";
-import { useColors } from "../shared/useColors.js";
+import { useColors } from "../hooks/useColors.js";
 
 function DisplayWord({ word, wordIndex }) {
   const wordLength = useSelector(getWordLength);
@@ -25,7 +25,7 @@ function DisplayWord({ word, wordIndex }) {
     >
       {Array.from({ length: wordLength }, (_, i) => {
         const letter = word.at(i);
-        const color = colorMap.at(i);
+        const color = colorMap[i]?.color;
         return (
           <DisplayLetter
             letter={letter}

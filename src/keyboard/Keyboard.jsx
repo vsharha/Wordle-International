@@ -1,6 +1,5 @@
 import KeyboardLine from "./KeyboardLine.jsx";
-import { useSelector } from "react-redux";
-import { getWordToGuess } from "../wordleSlice.js";
+import { useKeyboardColors } from "../hooks/useColors.js";
 
 function Keyboard() {
   const keyboard = [
@@ -9,9 +8,7 @@ function Keyboard() {
     ["Enter", "z", "x", "c", "v", "b", "n", "m", "Backspace"],
   ];
 
-  const wordToGuess = useSelector(getWordToGuess);
-
-  function getColors() {}
+  useKeyboardColors();
 
   return (
     <div className="flex items-center justify-center flex-col gap-2 w-screen px-2 pb-3 md:pb-0">

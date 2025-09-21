@@ -73,7 +73,7 @@ const wordleSlice = createSlice({
             state.guesses.push(state.currentGuess);
             state.currentGuess = "";
 
-            if (state.currentGuess === state.wordToGuess) {
+            if (state.guesses.at(-1) === state.wordToGuess) {
                 state.status = "won";
 
                 return;
