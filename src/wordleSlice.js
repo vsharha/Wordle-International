@@ -122,13 +122,13 @@ export const getMessageType = (state) => state.wordle.messageType;
 export const getIsDarkMode = (state) => state.wordle.darkMode;
 
 export const updateWordLength = (length) => (dispatch) => {
-    dispatch({ type: "wordle/reset" });
+    dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setWordLength", payload: Number(length) });
     dispatch({ type: "wordle/startGame" });
 };
 
 export const updateMaxAttempts = (attempts) => (dispatch) => {
-    dispatch({ type: "wordle/reset" });
+    dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setMaxAttempts", payload: Number(attempts) });
     dispatch({ type: "wordle/startGame" });
 };
