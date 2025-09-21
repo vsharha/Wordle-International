@@ -2,16 +2,11 @@ import Keyboard from "./keyboard/Keyboard.jsx";
 import Display from "./display/Display.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import {
-  getStatus,
-  getWordToGuess,
-  startGame,
-  submitCurrentGuess,
-  updateCurrentGuess,
-} from "./wordleSlice.js";
+import { getStatus, startGame } from "./wordleSlice.js";
 import Header from "./header/Header.jsx";
 import Modal from "./ui/Modal.jsx";
 import WinScreen from "./ui/WinScreen.jsx";
+import useKeyboard from "./hooks/useKeyboard.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,32 +14,7 @@ function App() {
     dispatch(startGame());
   }, [dispatch]);
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.defaultPrevented) return;
-
-      switch (e.key) {
-        case "Enter":
-          dispatch(submitCurrentGuess());
-          break;
-        case "Backspace":
-          dispatch(updateCurrentGuess(e.key));
-          break;
-        default:
-          if (e.key.length === 1 && e.key.match(/[a-z]/i))
-            dispatch(updateCurrentGuess(e.key.toLowerCase()));
-          else {
-            e.preventDefault();
-          }
-          break;
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [dispatch]);
+  useKeyboard();
 
   const status = useSelector(getStatus);
 
@@ -62,7 +32,7 @@ function App() {
         <Keyboard />
       </div>
       <Modal open={isOpenWinScreen} onClose={() => setIsOpenWinScreen(false)}>
-        <WinScreen />
+        <WinScreen onClose={() => setIsOpenWinScreen(false)} />
       </Modal>
     </main>
   );

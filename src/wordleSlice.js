@@ -99,10 +99,11 @@ const wordleSlice = createSlice({
         setKeyboardDisabled(state, action) {
             state.keyboardDisabled = action.payload;
         },
-        reset(state) {
+        resetGame(state) {
             return {
                 ...initialState,
                 message: "Game has been reset",
+                darkMode: state.darkMode,
                 wordLength: state.wordLength,
                 maxAttempts: state.maxAttempts,
             };
