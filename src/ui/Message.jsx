@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import useMessage from "../shared/useMessage.js";
+import useMessage from "../hooks/useMessage.js";
 
 function Message() {
   const { isVisible, message, handleTransitionEnd } = useMessage();

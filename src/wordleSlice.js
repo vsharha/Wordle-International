@@ -8,6 +8,7 @@ const initialState = {
     wordLength: 5,
     status: "idle",
     message: "",
+    messageType: "",
     wordToGuess: "",
     darkMode: true,
     keyboardDisabled: false,
@@ -53,12 +54,14 @@ const wordleSlice = createSlice({
 
             if (state.currentGuess.length !== state.wordLength) {
                 state.message = "Not enough letters";
+                state.messageType = "error";
 
                 return;
             }
 
             if (!wordList.includes(state.currentGuess)) {
                 state.message = "Not in word list";
+                state.messageType = "error";
 
                 return;
             }
@@ -109,6 +112,7 @@ export const getWordLength = (state) => state.wordle.wordLength;
 export const getStatus = (state) => state.wordle.status;
 export const getWordToGuess = (state) => state.wordle.wordToGuess;
 export const getMessage = (state) => state.wordle.message;
+export const getMessageType = (state) => state.wordle.messageType;
 export const getIsDarkMode = (state) => state.wordle.darkMode;
 
 export const updateWordLength = (length) => (dispatch) => {

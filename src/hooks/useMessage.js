@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { clearMessage, getMessage, getStatus } from "../wordleSlice.js";
+import { clearMessage, getMessage, getMessageType, getStatus } from "../wordleSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function useMessage() {
     const reduxMessage = useSelector(getMessage);
+    const reduxMessageType = useSelector(getMessageType);
     const status = useSelector(getStatus);
 
     const [message, setMessage] = useState();
+    const [messageType, setMessageType] = useState();
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -18,7 +20,10 @@ export default function useMessage() {
             setIsVisible(true);
             dispatch(clearMessage());
         }
-    }, [reduxMessage, dispatch, status]);
+        if (reduxMessageType) {
+            setMessageType(reduxMessageType);
+        }
+    }, [reduxMessage, reduxMessageType, dispatch, status]);
 
     function handleTransitionEnd() {
         if (isVisible && status === "playing") {
@@ -28,5 +33,5 @@ export default function useMessage() {
         }
     }
 
-    return { isVisible, message, handleTransitionEnd };
+    return { isVisible, message, messageType, handleTransitionEnd };
 }

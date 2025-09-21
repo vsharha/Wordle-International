@@ -1,5 +1,5 @@
 import Toggle from "./Toggle.jsx";
-import useDarkmode from "../shared/useDarkmode.js";
+import useDarkmode from "../hooks/useDarkmode.js";
 import Range from "./Range.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {

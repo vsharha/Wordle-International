@@ -4,7 +4,7 @@ import HeaderButton from "./HeaderButton.jsx";
 import Settings from "./Settings.jsx";
 import { useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa6";
-import useDarkmode from "../shared/useDarkmode.js";
+import useDarkmode from "../hooks/useDarkmode.js";
 
 function Header() {
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
