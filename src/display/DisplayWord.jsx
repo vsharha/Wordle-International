@@ -1,13 +1,13 @@
 import DisplayLetter from "./DisplayLetter.jsx";
 import { useSelector } from "react-redux";
-import { getGuesses, getWordLength, getWordToGuess } from "../wordleSlice.js";
+import { getGuesses, getWordLength } from "../wordleSlice.js";
 import { twMerge } from "tailwind-merge";
 import useShake from "../animation/useShake.js";
 import useRotate from "../animation/useRotate.js";
 import usePopIn from "../animation/usePopIn.js";
 import { useColors } from "../hooks/useColors.js";
 
-function DisplayWord({ word, wordIndex }) {
+function DisplayWord({ word, wordIndex, skip }) {
   const wordLength = useSelector(getWordLength);
   const guesses = useSelector(getGuesses);
   const isCurrent = wordIndex === guesses.length;
@@ -25,7 +25,7 @@ function DisplayWord({ word, wordIndex }) {
     >
       {Array.from({ length: wordLength }, (_, i) => {
         const letter = word.at(i);
-        const color = colorMap[i]?.color;
+        const color = skip ? "correct" : colorMap[i]?.color;
         return (
           <DisplayLetter
             letter={letter}
@@ -35,6 +35,7 @@ function DisplayWord({ word, wordIndex }) {
             rotate={i === rotateIndex}
             onRotateEnd={onRotateEnd}
             key={i}
+            skip={skip}
           />
         );
       })}

@@ -64,9 +64,20 @@
         }
     }
 
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 100%;
+        }
+    }
+
     --animate-shake: shake 0.25s linear;
     --animate-pop-in: pop-in 0.1s linear;
     --animate-rotate: rotate 0.35s linear;
+    --animate-fade-in: fade-in 0.1s linear
 }
 
 @layer components {
@@ -83,7 +94,7 @@
     }
 
     .input-element {
-        @apply w-full flex justify-between border-b border-border dark:border-border-dark py-3
+        @apply w-full flex justify-between border-b border-border dark:border-border-dark py-3 items-center
     }
 
     .h-screen-dynamic {

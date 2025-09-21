@@ -26,5 +26,5 @@ export default function useRotate(word, wordIndex) {
         });
     }
 
-    return { rotateIndex, onRotateEnd };
+    return { rotateIndex, setRotateIndex, onRotateEnd };
 }

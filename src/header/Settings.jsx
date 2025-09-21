@@ -10,6 +10,7 @@ import {
 } from "../wordleSlice.js";
 import Modal from "../ui/Modal.jsx";
 import { RxCross2 } from "react-icons/rx";
+import CloseButton from "../ui/CloseButton.jsx";
 
 function Settings({ open, setIsOpen }) {
   const { isDark, setIsDark } = useDarkmode();
@@ -25,9 +26,7 @@ function Settings({ open, setIsOpen }) {
       <div className="bg-back dark:bg-back-dark text-font dark:text-font-dark p-3 rounded-lg w-full">
         <div className="relative flex items-center justify-center pb-7">
           <h2 className="font-bold uppercase text-center">Settings</h2>
-          <button onClick={() => setIsOpen(false)} className="absolute right-2 top-2">
-            <RxCross2 size={24} />
-          </button>
+          <CloseButton onClose={() => setIsOpen(false)} />
         </div>
 
         <Toggle value={isDark} setValue={setIsDark}>

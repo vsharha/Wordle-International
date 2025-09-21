@@ -6,7 +6,7 @@ function Toggle({ children, value, setValue }) {
         type="checkbox"
         checked={value}
         onChange={() => setValue(!value)}
-        className="bg-correct"
+        className="bg-correct accent-correct dark:accent-correct-dark h-4 w-4"
       />
     </div>
   );

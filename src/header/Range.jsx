@@ -3,7 +3,7 @@ function Range({ min, max, value, setValue, children }) {
     <div className="input-element">
       <span>{children}</span>
       <div className="flex gap-6 items-center">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 accent-correct dark:accent-correct-dark">
           {min}
           <input
             type="range"

@@ -10,7 +10,7 @@ const initialState = {
     message: "",
     messageType: "",
     wordToGuess: "",
-    darkMode: true,
+    darkMode: false,
     keyboardDisabled: false,
 };
 
@@ -20,6 +20,7 @@ const wordleSlice = createSlice({
     reducers: {
         clearMessage(state) {
             state.message = "";
+            state.messageType = "";
         },
         startGame(state) {
             state.wordToGuess = generate({

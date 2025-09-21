@@ -1,9 +1,17 @@
 import Keyboard from "./keyboard/Keyboard.jsx";
 import Display from "./display/Display.jsx";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { startGame, submitCurrentGuess, updateCurrentGuess } from "./wordleSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import {
+  getStatus,
+  getWordToGuess,
+  startGame,
+  submitCurrentGuess,
+  updateCurrentGuess,
+} from "./wordleSlice.js";
 import Header from "./header/Header.jsx";
+import Modal from "./ui/Modal.jsx";
+import WinScreen from "./ui/WinScreen.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +46,14 @@ function App() {
     };
   }, [dispatch]);
 
+  const status = useSelector(getStatus);
+
+  const [isOpenWinScreen, setIsOpenWinScreen] = useState(false);
+
+  useEffect(() => {
+    if (status === "won") setIsOpenWinScreen(true);
+  }, [status]);
+
   return (
     <main className="flex flex-col justify-center items-center gap-3 h-screen-dynamic md:h-fit">
       <Header />
@@ -45,6 +61,9 @@ function App() {
         <Display />
         <Keyboard />
       </div>
+      <Modal open={isOpenWinScreen} onClose={() => setIsOpenWinScreen(false)}>
+        <WinScreen />
+      </Modal>
     </main>
   );
 }
