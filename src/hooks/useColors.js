@@ -44,11 +44,18 @@ export function useKeyboardColors() {
     let keyboardColorMap = {};
     for (let colorMap of guesses.map((guess) => getColors(wordToGuess, guess))) {
         for (let { letter, color } of colorMap) {
-            keyboardColorMap[letter] = color;
+            switch (keyboardColorMap[letter]) {
+                case "correct":
+                    continue;
+                case "partial":
+                    if (color === "correct") keyboardColorMap[letter] = color;
+                    continue;
+                case "guessed":
+                default:
+                    keyboardColorMap[letter] = color;
+            }
         }
     }
-
-    console.log(keyboardColorMap);
 
     return keyboardColorMap;
 }
