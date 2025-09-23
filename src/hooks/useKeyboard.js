@@ -17,9 +17,8 @@ export default function useKeyboard() {
                     dispatch(updateCurrentGuess(e.key));
                     break;
                 default:
-                    if (e.key.length === 1 && e.key.match(/[a-z]/i))
+                    if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
                         dispatch(updateCurrentGuess(e.key.toLowerCase()));
-                    else {
                         e.preventDefault();
                     }
                     break;
