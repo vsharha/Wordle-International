@@ -21,7 +21,7 @@ function DisplayWord({ word, wordIndex, skip }) {
   return (
     <div
       onAnimationEnd={onShakeEnd}
-      className={twMerge("flex gap-1.5 h-15 justify-center", shake ? "animate-shake" : "")}
+      className={twMerge("flex gap-1.5 w-full justify-center", shake ? "animate-shake" : "")}
     >
       {Array.from({ length: wordLength }, (_, i) => {
         const letter = word.at(i);
