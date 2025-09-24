@@ -27,11 +27,11 @@ function AboutScreen({open, setIsOpen}) {
           </li>
         </ul>
         <p className="font-bold mt-3">Examples</p>
-        <DisplayWord word="wordy" skipArray={["correct"]} className="justify-start mt-3"/>
+        <DisplayWord word="wordy" skipArray={["correct"]} className="justify-start mt-3" skipWordLen={5}/>
         <p><span className="font-bold">W</span> is in the word and in the correct spot.</p>
-        <DisplayWord word="light" skipArray={["", "present"]} className="justify-start mt-3"/>
+        <DisplayWord word="light" skipArray={["", "present"]} className="justify-start mt-3" skipWordLen={5}/>
         <p><span className="font-bold">I</span> is in the word but in the wrong spot.</p>
-        <DisplayWord word="rogue" skipArray={["", "", "", "guessed"]} className="justify-start mt-3"/>
+        <DisplayWord word="rogue" skipArray={["", "", "", "guessed"]} className="justify-start mt-3" skipWordLen={5}/>
         <p><span className="font-bold">U</span> is not in the word in any spot.</p>
       </div>
     </Modal>
