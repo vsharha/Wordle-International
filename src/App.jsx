@@ -31,9 +31,7 @@ function App() {
         <Display />
         <Keyboard />
       </div>
-      <Modal open={isOpenWinScreen} onClose={() => setIsOpenWinScreen(false)}>
-        <WinScreen onClose={() => setIsOpenWinScreen(false)} />
-      </Modal>
+      <WinScreen open={isOpenWinScreen} setIsOpen={setIsOpenWinScreen} />
     </main>
   );
 }

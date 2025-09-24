@@ -1,6 +1,6 @@
-import Toggle from "./Toggle.jsx";
+import Toggle from "../header/Toggle.jsx";
 import useDarkmode from "../hooks/useDarkmode.js";
-import Range from "./Range.jsx";
+import Range from "../header/Range.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getMaxAttempts,
@@ -8,9 +8,9 @@ import {
   updateMaxAttempts,
   updateWordLength,
 } from "../wordleSlice.js";
-import Modal from "../ui/Modal.jsx";
+import Modal from "./Modal.jsx";
 import { RxCross2 } from "react-icons/rx";
-import CloseButton from "../ui/CloseButton.jsx";
+import CloseButton from "./CloseButton.jsx";
 
 function Settings({ open, setIsOpen }) {
   const { isDark, setIsDark } = useDarkmode();

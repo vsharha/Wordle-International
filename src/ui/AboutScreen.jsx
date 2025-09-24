@@ -1,0 +1,41 @@
+import Modal from "./Modal.jsx";
+import CloseButton from "./CloseButton.jsx";
+import { useSelector } from "react-redux";
+import { getMaxAttempts, getWordLength } from "../wordleSlice.js";
+import DisplayWord from "../display/DisplayWord.jsx";
+
+function AboutScreen({open, setIsOpen}) {
+  const wordLength = useSelector(getWordLength)
+  const maxAttempts = useSelector(getMaxAttempts)
+
+  return (
+    <Modal open={open} onClose={()=>setIsOpen(false)}>
+      <div className= "text-font dark:text-font-dark bg-back dark:bg-back-dark p-5 md:p-10 rounded-lg">
+
+      <div className="relative">
+        <div className="h-10"></div>
+        <CloseButton onClose={() => setIsOpen(false)} />
+      </div>
+        <h1 className="font-bold text-2xl">How To Play</h1>
+        <h2 className="text-lg">Guess the Wordle in {maxAttempts} tries</h2>
+        <ul className="list-disc pl-5">
+          <li>
+            Each guess must be a valid {wordLength} word.
+          </li>
+          <li>
+            The color of the tiles will change to show how close your guess was to the word.
+          </li>
+        </ul>
+        <p className="font-bold">Examples</p>
+        <DisplayWord word="wordy" skipArray={["correct"]} className="justify-start"/>
+        <p><span className="font-bold">W</span> is in the word and in the correct spot.</p>
+        <DisplayWord word="light" skipArray={["", "present"]} className="justify-start mt-3"/>
+        <p><span className="font-bold">I</span> is in the word but in the wrong spot.</p>
+        <DisplayWord word="rogue" skipArray={["", "", "", "guessed"]} className="justify-start mt-3"/>
+        <p><span className="font-bold">U</span> is not in the word in any spot.</p>
+      </div>
+    </Modal>
+  );
+}
+
+export default AboutScreen;

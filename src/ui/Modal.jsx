@@ -1,8 +1,20 @@
 import useFadeIn from "../animation/useFadeIn.js";
 import { twMerge } from "tailwind-merge";
+import CloseButton from "./CloseButton.jsx";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setKeyboardDisabled } from "../wordleSlice.js";
 
 function Modal({ children, open, onClose }) {
   const { visible, onFadeInEnd } = useFadeIn(open);
+
+  const dispatch = useDispatch()
+
+  if(open) {
+    dispatch(setKeyboardDisabled(true))
+  } else {
+    dispatch(setKeyboardDisabled(false))
+  }
 
   if (!visible) return null;
 
@@ -16,7 +28,7 @@ function Modal({ children, open, onClose }) {
       onAnimationEnd={onFadeInEnd}
     >
       <div
-        className="absolute bottom-0 w-full md:w-150 md:bottom-1/2 shadow-xl z-10"
+        className="absolute bottom-0 w-full md:w-150 md:top-0 md:my-auto h-fit shadow-xl z-10"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

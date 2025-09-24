@@ -7,7 +7,7 @@ import useRotate from "../animation/useRotate.js";
 import usePopIn from "../animation/usePopIn.js";
 import { useColors } from "../hooks/useColors.js";
 
-function DisplayWord({ word, wordIndex, skip }) {
+function DisplayWord({ word, wordIndex, skip, skipArray, className }) {
   const wordLength = useSelector(getWordLength);
   const guesses = useSelector(getGuesses);
   const isCurrent = wordIndex === guesses.length;
@@ -21,11 +21,20 @@ function DisplayWord({ word, wordIndex, skip }) {
   return (
     <div
       onAnimationEnd={onShakeEnd}
-      className={twMerge("flex gap-1.5 w-full justify-center", shake ? "animate-shake" : "")}
+      className={twMerge("flex gap-1.5 w-full justify-center", shake ? "animate-shake" : "", className)}
     >
       {Array.from({ length: wordLength }, (_, i) => {
         const letter = word.at(i);
-        const color = skip ? "correct" : colorMap[i]?.color;
+        let color;
+        if (skip) {
+          color = "correct";
+        } else if (skipArray?.at(i)) {
+          color = skipArray.at(i);
+        } else {
+          color = colorMap.at(i)?.color
+        }
+        const skipRotation = skip || skipArray?.at(i)
+
         return (
           <DisplayLetter
             letter={letter}
@@ -35,7 +44,7 @@ function DisplayWord({ word, wordIndex, skip }) {
             rotate={i === rotateIndex}
             onRotateEnd={onRotateEnd}
             key={i}
-            skip={skip}
+            skip={skipRotation}
           />
         );
       })}
