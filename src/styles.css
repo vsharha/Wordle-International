@@ -100,4 +100,8 @@
     .h-screen-dynamic {
         height:100dvh
     }
+
+    .max-h-screen-dynamic {
+        max-height:100dvh
+    }
 }

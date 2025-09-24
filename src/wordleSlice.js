@@ -103,6 +103,7 @@ const wordleSlice = createSlice({
             return {
                 ...initialState,
                 message: "Game has been reset",
+                messageType: "reset",
                 darkMode: state.darkMode,
                 wordLength: state.wordLength,
                 maxAttempts: state.maxAttempts,
