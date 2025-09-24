@@ -20,7 +20,7 @@ function AboutScreen({open, setIsOpen}) {
         <h2 className="text-lg">Guess the Wordle in {maxAttempts} tries</h2>
         <ul className="list-disc pl-5 mt-3">
           <li>
-            Each guess must be a valid {wordLength} word.
+            Each guess must be a valid {wordLength}-letter word.
           </li>
           <li>
             The color of the tiles will change to show how close your guess was to the word.
