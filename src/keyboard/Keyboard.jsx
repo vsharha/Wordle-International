@@ -1,9 +1,13 @@
 import KeyboardLine from "./KeyboardLine.jsx";
 import { useKeyboardColors } from "../hooks/useColors.js";
 import getKeyboardLayout from "./getKeyboardLayout.js";
+import { useSelector } from "react-redux";
+import { getLanguage } from "../wordleSlice.js";
 
 function Keyboard() {
-  const keyboard = getKeyboardLayout("eng")
+  const language = useSelector(getLanguage)
+
+  const keyboard = getKeyboardLayout(language)
 
   useKeyboardColors();
 

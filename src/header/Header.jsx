@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FaMoon, FaRegCircleQuestion, FaSun } from "react-icons/fa6";
 import useDarkmode from "../hooks/useDarkmode.js";
 import AboutScreen from "../ui/AboutScreen.jsx";
+import LanguageSelector from "./LanguageSelector.jsx";
 
 function Header() {
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
@@ -17,6 +18,7 @@ function Header() {
         <FaRegCircleQuestion size={20} />
       </HeaderButton>
       <div className="flex items-center justify-center h-full">
+        <LanguageSelector/>
         <HeaderButton onClick={() => setIsDark(!isDark)}>
           {isDark ? <FaMoon size={24} /> : <FaSun size={24} />}
         </HeaderButton>
