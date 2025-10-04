@@ -27,32 +27,32 @@ import georgian from "simple-keyboard-layouts/build/layouts/georgian"
 import armenianEastern from "simple-keyboard-layouts/build/layouts/armenianEastern"
 
 const keyboardLayouts = {
-    // ara: arabic,
-    // fas: farsi,
-    // urd: urdu,
-    eng: english,
-    ben: bengali,
-    por: brazilian,
-    ces: czech,
-    fra: french,
-    deu: german,
-    ell: greek,
-    heb: hebrew,
-    hin: hindi,
-    hun: hungarian,
-    ita: italian,
-    jpn: japanese,
-    kor: korean,
-    mkd: macedonian,
-    pol: polish,
-    rus: russian,
-    spa: spanish,
-    swe: swedish,
-    tel: telugu,
-    tur: turkish,
-    ukr: ukrainian,
-    kat: georgian,
-    hye: armenianEastern
+    // arabic: arabic,
+    // farsi: farsi,
+    // urdu: urdu,
+    // hindi: hindi,
+    english: english,
+    bengali: bengali,
+    brazilian: brazilian,
+    czech: czech,
+    french: french,
+    german: german,
+    greek: greek,
+    hebrew: hebrew,
+    hungarian: hungarian,
+    italian: italian,
+    japanese: japanese,
+    korean: korean,
+    macedonian: macedonian,
+    polish: polish,
+    russian: russian,
+    spanish: spanish,
+    swedish: swedish,
+    telugu: telugu,
+    turkish: turkish,
+    ukrainian: ukrainian,
+    georgian: georgian,
+    armenian: armenianEastern
 };
 
 function isAllowedKey(key) {
@@ -66,9 +66,7 @@ function isAllowedKey(key) {
 export default function getKeyboardLayout(lang) {
     let processedLayout = keyboardLayouts[lang].layout.default
         .map((line_str) => line_str.split(" "))
-        .map((line) => line.filter(
-            (key) => isAllowedKey(key)
-        ))
+        .map((line) => line.filter((key) => isAllowedKey(key)))
         .filter(line=>line.length>0);
 
     if(processedLayout.length === 0) {
@@ -80,3 +78,5 @@ export default function getKeyboardLayout(lang) {
 
     return processedLayout;
 }
+
+export {keyboardLayouts}
