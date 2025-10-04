@@ -25,9 +25,9 @@ function App() {
   }, [status]);
 
   return (
-    <main className="flex flex-col h-screen-dynamic gap-3">
+    <main className="flex flex-col h-screen-dynamic">
       <Header />
-      <div className="flex flex-col gap-3 h-full">
+      <div className="flex flex-col h-full">
         <Display />
         <Keyboard />
       </div>
