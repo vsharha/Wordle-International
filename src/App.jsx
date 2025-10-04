@@ -25,7 +25,7 @@ function App() {
   }, [status]);
 
   return (
-    <main className="flex flex-col gap-3 h-screen-dynamic">
+    <main className="flex flex-col gap-3 h-screen-dynamic md:h-screen-dynamic">
       <Header />
       <div className="flex flex-col gap-3 h-full justify-between md:h-fit">
         <Display />
