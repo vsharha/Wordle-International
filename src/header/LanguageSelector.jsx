@@ -5,17 +5,19 @@ import useFadeIn from "../animation/useFadeIn.js";
 import { twMerge } from "tailwind-merge";
 import { keyboardLayouts } from "../keyboard/getKeyboardLayout.js";
 import HeaderButton from "./HeaderButton.jsx";
+import { FaGlobe } from "react-icons/fa6";
 
 const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 function LanguageSelector() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const language = useSelector(getLanguage)
 
   return (
     <div className="relative text-font dark:text-font-dark h-full">
-      <HeaderButton>
-        <Language language={language} onClick={() => setIsOpen((isOpen)=>!isOpen)} className="px-3" />
+      <HeaderButton className="px-4">
+        <FaGlobe size={16}/>
+        <Language language={language} onClick={() => setIsOpen((isOpen)=>!isOpen)} className="font-semibold" />
       </HeaderButton>
       <Options open={isOpen}/>
     </div>

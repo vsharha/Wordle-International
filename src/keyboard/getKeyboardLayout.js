@@ -4,7 +4,7 @@
 // import hindi from "simple-keyboard-layouts/build/layouts/hindi"
 
 import english from "simple-keyboard-layouts/build/layouts/english"
-import bengali from "simple-keyboard-layouts/build/layouts/bengali"
+// import bengali from "simple-keyboard-layouts/build/layouts/bengali"
 import brazilian from "simple-keyboard-layouts/build/layouts/brazilian"
 import czech from "simple-keyboard-layouts/build/layouts/czech"
 import french from "simple-keyboard-layouts/build/layouts/french"
@@ -32,8 +32,8 @@ const keyboardLayouts = {
     // urdu: urdu,
     // hindi: hindi,
     english: english,
-    bengali: bengali,
-    brazilian: brazilian,
+    // bengali: bengali,
+    portuguese: brazilian,
     czech: czech,
     french: french,
     german: german,
