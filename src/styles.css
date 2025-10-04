@@ -27,8 +27,8 @@
     --color-present: #c9b458;
     --color-present-dark: #b59f3b;
 
-    --header-border: theme(--color-slate-200);
-    --header-border-dark: theme(--color-slate-200);
+    --color-back-secondary: theme(--color-neutral-100);
+    --color-back-secondary-dark: theme(--color-neutral-800);
 
     @keyframes shake {
         0%,
@@ -98,10 +98,10 @@
     }
 
     .h-screen-dynamic {
-        height:100dvh
+        height: 100dvh
     }
 
     .max-h-screen-dynamic {
-        max-height:100dvh
+        max-height: 100dvh
     }
 }

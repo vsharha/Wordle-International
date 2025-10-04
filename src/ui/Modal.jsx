@@ -1,7 +1,5 @@
 import useFadeIn from "../animation/useFadeIn.js";
 import { twMerge } from "tailwind-merge";
-import CloseButton from "./CloseButton.jsx";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setKeyboardDisabled } from "../wordleSlice.js";
 

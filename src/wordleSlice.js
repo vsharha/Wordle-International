@@ -12,7 +12,7 @@ const initialState = {
     wordToGuess: "",
     darkMode: false,
     keyboardDisabled: false,
-    language: "eng"
+    language: "english"
 };
 
 const wordleSlice = createSlice({
@@ -153,6 +153,7 @@ export const {
     submitCurrentGuess,
     setDarkMode,
     setKeyboardDisabled,
+    setLanguage
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;
