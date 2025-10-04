@@ -59,7 +59,7 @@ function isAllowedKey(key) {
     return key.length === 1 &&
         !key.startsWith("{") &&
         !key.endsWith("}") &&
-        !/^[\d+\-=\[\]\\;,./`~!@#$%^&*()_{}|:"<>?´¨˛°§¥€¿«»'„՝՛‌،؛゛゜]+$/.test(key) &&
+        !/^[\d+\-=[\]\\;,./`~!@#$%^&*()_{}|:"<>?´¨˛°§¥€¿«»'„՝՛‌،؛゛゜]+$/.test(key) &&
         !/^[\u0300-\u036F\u0900-\u097F\u0600-\u06FF]$/.test(key)
 }
 
