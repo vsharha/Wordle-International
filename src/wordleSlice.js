@@ -109,9 +109,6 @@ const wordleSlice = createSlice({
                 message: "Game has been reset",
                 messageType: "reset",
                 darkMode: state.darkMode,
-                wordLength: state.wordLength,
-                maxAttempts: state.maxAttempts,
-                language: state.language
             };
         },
     },
@@ -142,7 +139,7 @@ export const updateMaxAttempts = (attempts) => (dispatch) => {
 
 export const updateLanguage = (language) => (dispatch) => {
     dispatch({ type: "wordle/resetGame" });
-    dispatch({ type: "wordle/setLanguage", payload: Number(language) });
+    dispatch({ type: "wordle/setLanguage", payload: language });
     dispatch({ type: "wordle/startGame" });
 };
 

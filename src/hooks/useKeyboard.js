@@ -1,9 +1,14 @@
-import { useEffect } from "react";
-import { submitCurrentGuess, updateCurrentGuess } from "../wordleSlice.js";
-import { useDispatch } from "react-redux";
+import { useEffect, useMemo } from "react";
+import { getLanguage, submitCurrentGuess, updateCurrentGuess } from "../wordleSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getFlattenedLayout } from "../keyboard/getKeyboardLayout.js";
 
 export default function useKeyboard() {
     const dispatch = useDispatch();
+
+    const language = useSelector(getLanguage)
+
+    const keys = useMemo(()=>getFlattenedLayout(language), [language])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -17,7 +22,7 @@ export default function useKeyboard() {
                     dispatch(updateCurrentGuess(e.key));
                     break;
                 default:
-                    if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
+                    if (e.key.length === 1 && keys.includes(e.key.toLowerCase())) {
                         dispatch(updateCurrentGuess(e.key.toLowerCase()));
                         e.preventDefault();
                     }
@@ -29,5 +34,5 @@ export default function useKeyboard() {
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [dispatch]);
+    }, [dispatch, keys]);
 }

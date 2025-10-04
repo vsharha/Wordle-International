@@ -14,7 +14,7 @@ import hebrew from "simple-keyboard-layouts/build/layouts/hebrew"
 import hungarian from "simple-keyboard-layouts/build/layouts/hungarian"
 import italian from "simple-keyboard-layouts/build/layouts/italian"
 import japanese from "simple-keyboard-layouts/build/layouts/japanese"
-import korean from "simple-keyboard-layouts/build/layouts/korean"
+// import korean from "simple-keyboard-layouts/build/layouts/korean"
 import macedonian from "simple-keyboard-layouts/build/layouts/macedonian"
 import polish from "simple-keyboard-layouts/build/layouts/polish"
 import russian from "simple-keyboard-layouts/build/layouts/russian"
@@ -42,7 +42,7 @@ const keyboardLayouts = {
     hungarian: hungarian,
     italian: italian,
     japanese: japanese,
-    korean: korean,
+    // korean: korean,
     macedonian: macedonian,
     polish: polish,
     russian: russian,
@@ -77,6 +77,10 @@ export default function getKeyboardLayout(lang) {
     processedLayout.at(-1).push("Backspace")
 
     return processedLayout;
+}
+
+export function getFlattenedLayout(lang) {
+    return getKeyboardLayout(lang).reduce((accumulator, current) => accumulator.concat(current))
 }
 
 export {keyboardLayouts}

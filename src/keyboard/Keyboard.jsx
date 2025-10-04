@@ -12,7 +12,7 @@ function Keyboard() {
   useKeyboardColors();
 
   return (
-    <div className="flex items-center justify-center flex-col gap-2 w-screen px-2 pb-3 md:pb-0">
+    <div className="flex items-center justify-center flex-col gap-1.5 w-screen px-2 pb-3 md:pb-0">
       {keyboard.map((line, i) => (
         <KeyboardLine line={line} key={i} addSpace={keyboard.at(0).length > keyboard.at(1).length ? i===1:i===2} />
       ))}
