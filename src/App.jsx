@@ -28,11 +28,11 @@ function App() {
     const language = searchParams.get("lang")
 
     if (wordLength) {
-      dispatch(setWordLength(wordLength))
+      dispatch(setWordLength(Number(wordLength)))
     }
 
     if (maxAttempts) {
-      dispatch(setMaxAttempts(maxAttempts))
+      dispatch(setMaxAttempts(Number(maxAttempts)))
     }
 
     if (language) {

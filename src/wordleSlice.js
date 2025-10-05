@@ -3,7 +3,7 @@ import { wordList } from "random-words";
 import { fetchLanguages, fetchWords } from "./services/fetchRandomWords.js";
 import { languageCodeMapping } from "./keyboard/getKeyboardLayout.js";
 
-function getFilteredWordList(length) {
+function getFilteredWordList(length) {  
     return wordList.filter((word)=>word.length===length)
 }
 
@@ -88,6 +88,8 @@ const wordleSlice = createSlice({
             }
 
             if(!state.wordToGuess) {
+                state.message = {message: "Still loading words", type: "error"};
+
                 return;
             }
 
@@ -96,6 +98,8 @@ const wordleSlice = createSlice({
             }
 
             if (state.currentGuess.length !== state.wordLength) {
+                console.log(state.currentGuess.length)
+                console.log(state.wordLength)
                 state.message = {message: "Not enough letters", type: "error"};
 
                 return;
