@@ -11,7 +11,7 @@ export default function useMessage() {
 
     useEffect(()=>{
         if(reduxMessage.message) {
-            toast.custom((t) => <CustomToast t={t} message={reduxMessage.message}/>)
+            toast.custom((t) => <CustomToast t={t} message={reduxMessage.message} type={reduxMessage.type}/>)
             dispatch(clearMessage())
         }
     },[reduxMessage, dispatch])
