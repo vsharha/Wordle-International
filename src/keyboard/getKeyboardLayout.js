@@ -108,6 +108,40 @@ export default function getKeyboardLayout(lang) {
     return processedLayout;
 }
 
+export function getNormalizedLayout(lang) {
+    const layout = getKeyboardLayout(lang)
+
+    let normalized = []
+
+    for(let line of layout) {
+        let row = []
+
+        for (const letter of line) {
+            row.push({ letter: letter, width: letter.length > 1 ? 1.5 : 1 })
+        }
+
+        normalized.push(row)
+    }
+
+    const longest = Math.max(...normalized.map(line => line.reduce((total, current) => total+current.width, 0)))
+
+    for(let line of normalized) {
+        const totalWidth = line.reduce((total, current) => total+current.width, 0)
+
+        for(let needed = longest-totalWidth; needed > 0; needed-=2) {
+            if (needed === 1) {
+                line.unshift({width: 0.5})
+                line.push({width: 0.5})
+            } else {
+                line.unshift({width: 1})
+                line.push({width: 1})
+            }
+        }
+    }
+
+    return normalized
+}
+
 export function getFlattenedLayout(lang) {
     return getKeyboardLayout(lang).reduce((accumulator, current) => accumulator.concat(current))
 }

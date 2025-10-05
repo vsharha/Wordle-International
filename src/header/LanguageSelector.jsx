@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLanguage, getLanguageList, updateLanguage } from "../wordleSlice.js";
 import { languageCodeMapping } from "../keyboard/getKeyboardLayout.js";
 import HeaderButton from "./HeaderButton.jsx";
-import { FaCheck, FaGlobe } from "react-icons/fa6";
+import { FaCheck, FaChevronDown, FaGlobe } from "react-icons/fa6";
 import Dropdown from "../ui/Dropdown.jsx";
 import Loader from "../ui/Loader.jsx";
 import { twMerge } from "tailwind-merge";
@@ -23,6 +23,7 @@ function LanguageSelector() {
         <span>
           {capitalize(languageCodeMapping[language])}
         </span>
+        <FaChevronDown/>
       </HeaderButton>
       <Dropdown isOpen={isOpen} setIsOpen={setIsOpen} buttonRef={ref}>
         <Options setIsOpen={setIsOpen}/>
@@ -36,7 +37,7 @@ function Options({setIsOpen}) {
   const languageList = useSelector(getLanguageList)
   const currentLanguage = useSelector(getLanguage)
 
-  return <div className="absolute -right-2 mt-2 z-10 rounded-sm border-1 border-border dark:border-border-dark">
+  return <div className="absolute right-2 mt-2 z-10 rounded-sm border-1 border-border dark:border-border-dark">
     <div className="flex flex-col w-fit bg-back-secondary dark:bg-back-secondary-dark max-h-[50dvh] overflow-auto scrollbar scrollbar-thin dark:scrollbar-thumb-neutral-600 dark:scrollbar-track-back-dark" >
       {languageList.map((code) => {
         const language = languageCodeMapping[code]

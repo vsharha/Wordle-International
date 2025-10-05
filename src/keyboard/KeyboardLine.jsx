@@ -2,15 +2,15 @@ import KeyboardButton from "./KeyboardButton.jsx";
 import { useKeyboardColors } from "../hooks/useColors.js";
 import { twMerge } from "tailwind-merge";
 
-function KeyboardLine({ line, addSpace, shrink }) {
+function KeyboardLine({ line, shrink }) {
   const colorMap = useKeyboardColors();
 
   return (
     <div
-      className={twMerge("flex flex-row w-full gap-1 justify-center h-15 justify-center md:gap-1.5 md:h-15", addSpace ? "px-4.5" : "", shrink ? "h-10": "")}
+      className={twMerge("flex flex-row w-full justify-center h-16 justify-center md:h-16", shrink ? "h-12": "")}
     >
-      {line.map((letter) => (
-        <KeyboardButton letter={letter} color={colorMap[letter]} key={letter} />
+      {line.map(({letter, width}) => (
+        <KeyboardButton letter={letter} color={colorMap[letter]} key={letter} width={width}/>
       ))}
     </div>
   );
