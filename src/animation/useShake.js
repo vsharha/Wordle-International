@@ -1,18 +1,17 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getMessage, getMessageType } from "../wordleSlice.js";
+import { getMessage } from "../wordleSlice.js";
 
 export default function useShake(isCurrent) {
     const reduxMessage = useSelector(getMessage);
-    const reduxMessageType = useSelector(getMessageType);
 
     const [shake, setShake] = useState(false);
 
     useEffect(() => {
-        if (reduxMessage && reduxMessageType === "error" && isCurrent) {
+        if (reduxMessage.message && reduxMessage.type === "error" && isCurrent) {
             setShake(true);
         }
-    }, [reduxMessage, reduxMessageType, isCurrent]);
+    }, [reduxMessage, isCurrent]);
 
     function onShakeEnd() {
         setShake(false);

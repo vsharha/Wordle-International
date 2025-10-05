@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { themeColors } from "../shared/themeColors.js";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getMessage, getMessageType } from "../wordleSlice.js";
+import { getMessage } from "../wordleSlice.js";
 
 function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd, skip }) {
   const [doPopIn, setDoPopIn] = useState(popIn);
@@ -10,13 +10,13 @@ function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd, skip }) {
 
   const [hasRotated, setHasRotated] = useState(false);
 
-  const messageType = useSelector(getMessageType)
+  const message = useSelector(getMessage)
 
   useEffect(() => {
-    if (messageType === "reset") {
+    if (message.type === "reset") {
       setHasRotated(false)
     }
-  }, [messageType]);
+  }, [message.type]);
 
   useEffect(() => {
     if (popIn) {

@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
 import { getCurrentGuess, getGuesses, getMaxAttempts, getStatus } from "../wordleSlice.js";
 import DisplayWord from "./DisplayWord.jsx";
-import Message from "../ui/Message.jsx";
+import { Toaster } from "react-hot-toast";
+import useMessage from "../hooks/useMessage.jsx";
 
 function Display() {
   const currentGuess = useSelector(getCurrentGuess);
+
+  useMessage();
 
   const maxAttempts = useSelector(getMaxAttempts);
 
@@ -27,7 +30,7 @@ function Display() {
 
   return (
     <div className="flex flex-col w-full gap-1.5 justify-center h-full md:h-fit relative p-3">
-      <Message />
+      <Toaster position="top-center" toastOptions={{duration:1000}} containerStyle={{position:"relative"}}/>
       {normalised.map((guess, i) => (
         <DisplayWord word={guess} key={i} wordIndex={i} />
       ))}
