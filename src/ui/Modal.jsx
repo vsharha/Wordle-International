@@ -2,17 +2,16 @@ import useFadeIn from "../animation/useFadeIn.js";
 import { twMerge } from "tailwind-merge";
 import { useDispatch } from "react-redux";
 import { setKeyboardDisabled } from "../wordleSlice.js";
+import { useEffect } from "react";
 
 function Modal({ children, open, onClose }) {
   const { visible, onFadeInEnd } = useFadeIn(open);
 
   const dispatch = useDispatch()
 
-  if(open) {
-    dispatch(setKeyboardDisabled(true))
-  } else {
-    dispatch(setKeyboardDisabled(false))
-  }
+  useEffect(() => {
+    dispatch(setKeyboardDisabled(open));
+  }, [open, dispatch]);
 
   if (!visible) return null;
 

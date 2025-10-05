@@ -1,5 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { generate, wordList } from "random-words";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { wordList } from "random-words";
+import { fetchLanguages, fetchWords } from "./services/fetchRandomWords.js";
+import { languageCodeMapping } from "./keyboard/getKeyboardLayout.js";
+
+function getFilteredWordList(length) {
+    return wordList.filter((word)=>word.length===length)
+}
 
 const initialState = {
     guesses: [],
@@ -7,13 +13,47 @@ const initialState = {
     maxAttempts: 6,
     wordLength: 5,
     status: "idle",
+    loadingStatus: "idle",
     message: "",
     messageType: "",
     wordToGuess: "",
     darkMode: false,
     keyboardDisabled: false,
-    language: "english"
+    language: "eng",
+    wordList: [],
+    languageList: ["eng"]
 };
+
+
+export const fetchWordList = createAsyncThunk(
+    'wordle/fetchWordList',
+    async (_, {getState, rejectWithValue}) => {
+        const {language, wordLength} = getState().wordle;
+        try {
+            return fetchWords(language, wordLength);
+        } catch (err) {
+            return rejectWithValue(err.message)
+        }
+    }
+);
+
+export const fetchLanguageList = createAsyncThunk(
+    'wordle/fetchLanguageList',
+    async (_, {rejectWithValue}) => {
+        try {
+            const languages = await fetchLanguages();
+            return languages
+                .filter((code)=>languageCodeMapping[code])
+                .sort((a, b) => {
+                    const nameA = languageCodeMapping[a]?.toLowerCase() || "";
+                    const nameB = languageCodeMapping[b]?.toLowerCase() || "";
+                    return nameA.localeCompare(nameB);
+                });
+        } catch(err) {
+            return rejectWithValue(err.message)
+        }
+    }
+);
 
 const wordleSlice = createSlice({
     name: "wordle",
@@ -24,10 +64,8 @@ const wordleSlice = createSlice({
             state.messageType = "";
         },
         startGame(state) {
-            state.wordToGuess = generate({
-                minLength: state.wordLength,
-                maxLength: state.wordLength,
-            });
+            state.wordToGuess = state.wordList[Math.floor(Math.random()
+                * state.wordList.length)];
             state.status = "playing";
         },
         updateCurrentGuess(state, action) {
@@ -46,7 +84,6 @@ const wordleSlice = createSlice({
 
             if (action.payload && state.currentGuess.length < state.wordLength) {
                 state.currentGuess += action.payload;
-                return;
             }
         },
         submitCurrentGuess(state) {
@@ -65,7 +102,7 @@ const wordleSlice = createSlice({
                 return;
             }
 
-            if (!wordList.includes(state.currentGuess)) {
+            if (!state.wordList.includes(state.currentGuess)) {
                 state.message = "Not in word list";
                 state.messageType = "error";
 
@@ -84,8 +121,6 @@ const wordleSlice = createSlice({
             if (state.guesses.length === state.maxAttempts) {
                 state.status = "lost";
                 state.message = state.wordToGuess.toUpperCase();
-
-                return;
             }
         },
         setMaxAttempts(state, action) {
@@ -109,9 +144,40 @@ const wordleSlice = createSlice({
                 message: "Game has been reset",
                 messageType: "reset",
                 darkMode: state.darkMode,
+                languageList: state.languageList
             };
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchWordList.pending, (state) => {
+                state.loadingStatus = 'loading';
+            })
+            .addCase(fetchWordList.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.wordList = action.payload;
+                }
+                state.loadingStatus = 'idle';
+            })
+            .addCase(fetchWordList.rejected, (state) => {
+                state.loadingStatus = 'failed';
+                state.wordList = getFilteredWordList(state.wordLength);
+                state.language = "eng";
+            })
+            .addCase(fetchLanguageList.pending, (state) => {
+                state.loadingStatus = 'loading';
+            })
+            .addCase(fetchLanguageList.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.languageList = action.payload;
+                }
+                state.loadingStatus = 'idle';
+            })
+            .addCase(fetchLanguageList.rejected, (state) => {
+                state.loadingStatus = 'failed';
+                state.languageList = ["eng"]
+            });
+    }
 });
 
 export const getGuesses = (state) => state.wordle.guesses;
@@ -124,10 +190,12 @@ export const getMessage = (state) => state.wordle.message;
 export const getMessageType = (state) => state.wordle.messageType;
 export const getIsDarkMode = (state) => state.wordle.darkMode;
 export const getLanguage = (state) => state.wordle.language
+export const getLanguageList = (state) => state.wordle.languageList
 
 export const updateWordLength = (length) => (dispatch) => {
     dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setWordLength", payload: Number(length) });
+    dispatch(fetchWordList());
     dispatch({ type: "wordle/startGame" });
 };
 
@@ -140,6 +208,7 @@ export const updateMaxAttempts = (attempts) => (dispatch) => {
 export const updateLanguage = (language) => (dispatch) => {
     dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setLanguage", payload: language });
+    dispatch(fetchWordList());
     dispatch({ type: "wordle/startGame" });
 };
 
@@ -149,8 +218,7 @@ export const {
     updateCurrentGuess,
     submitCurrentGuess,
     setDarkMode,
-    setKeyboardDisabled,
-    setLanguage
+    setKeyboardDisabled
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;

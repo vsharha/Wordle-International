@@ -75,10 +75,16 @@
         }
     }
 
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
     --animate-shake: shake 0.25s linear;
     --animate-pop-in: pop-in 0.1s linear;
     --animate-rotate: rotate 0.35s linear;
-    --animate-fade-in: fade-in 0.1s linear
+    --animate-fade-in: fade-in 0.1s linear;
+    --animate-spin: spin 1.5s linear infinite;
 }
 
 @layer components {
@@ -108,6 +114,10 @@
 
     .max-h-screen-dynamic {
         max-height: 100dvh
+    }
+
+    .loader {
+        @apply border-5 border-neutral-300 border-t-neutral-500 rounded-full aspect-square h-full animate-spin
     }
 }
 

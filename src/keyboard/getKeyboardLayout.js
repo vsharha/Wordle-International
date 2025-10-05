@@ -27,32 +27,61 @@ import georgian from "simple-keyboard-layouts/build/layouts/georgian"
 import armenianEastern from "simple-keyboard-layouts/build/layouts/armenianEastern"
 
 const keyboardLayouts = {
-    // arabic: arabic,
-    // farsi: farsi,
-    // urdu: urdu,
-    // hindi: hindi,
-    english: english,
-    // bengali: bengali,
-    portuguese: brazilian,
-    czech: czech,
-    french: french,
-    german: german,
-    greek: greek,
-    hebrew: hebrew,
-    hungarian: hungarian,
-    italian: italian,
-    japanese: japanese,
-    // korean: korean,
-    macedonian: macedonian,
-    polish: polish,
-    russian: russian,
-    spanish: spanish,
-    swedish: swedish,
-    telugu: telugu,
-    turkish: turkish,
-    ukrainian: ukrainian,
-    georgian: georgian,
-    armenian: armenianEastern
+    // ara: arabic,
+    // fas: farsi,
+    // urd: urdu,
+    // hin: hindi,
+    eng: english,
+    // ben: bengali,
+    por: brazilian,
+    ces: czech,
+    fra: french,
+    deu: german,
+    ell: greek,
+    heb: hebrew,
+    hun: hungarian,
+    ita: italian,
+    jpn: japanese,
+    // kor: korean,
+    mkd: macedonian,
+    pol: polish,
+    rus: russian,
+    spa: spanish,
+    swe: swedish,
+    tel: telugu,
+    tur: turkish,
+    ukr: ukrainian,
+    kat: georgian,
+    hye: armenianEastern
+};
+
+const languageCodeMapping = {
+    // ara: "arabic",
+    // fas: "farsi",
+    // urd: "urdu",
+    // hin: "hindi",
+    eng: "english",
+    // ben: "bengali",
+    por: "portuguese",
+    ces: "czech",
+    fra: "french",
+    deu: "german",
+    ell: "greek",
+    heb: "hebrew",
+    hun: "hungarian",
+    ita: "italian",
+    jpn: "japanese",
+    // kor: "korean",
+    mkd: "macedonian",
+    pol: "polish",
+    rus: "russian",
+    spa: "spanish",
+    swe: "swedish",
+    tel: "telugu",
+    tur: "turkish",
+    ukr: "ukrainian",
+    kat: "georgian",
+    hye: "armenian"
 };
 
 function isAllowedKey(key) {
@@ -83,4 +112,4 @@ export function getFlattenedLayout(lang) {
     return getKeyboardLayout(lang).reduce((accumulator, current) => accumulator.concat(current))
 }
 
-export {keyboardLayouts}
+export {keyboardLayouts, languageCodeMapping}
