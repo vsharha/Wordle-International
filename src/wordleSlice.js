@@ -64,8 +64,6 @@ const wordleSlice = createSlice({
             state.messageType = "";
         },
         startGame(state) {
-            state.wordToGuess = state.wordList[Math.floor(Math.random()
-                * state.wordList.length)];
             state.status = "playing";
         },
         updateCurrentGuess(state, action) {
@@ -88,6 +86,10 @@ const wordleSlice = createSlice({
         },
         submitCurrentGuess(state) {
             if (state.keyboardDisabled) {
+                return;
+            }
+
+            if(!state.wordToGuess) {
                 return;
             }
 
@@ -156,12 +158,18 @@ const wordleSlice = createSlice({
             .addCase(fetchWordList.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.wordList = action.payload;
+                    state.wordToGuess = state.wordList[Math.floor(Math.random()
+                        * state.wordList.length)];
                 }
                 state.loadingStatus = 'idle';
             })
             .addCase(fetchWordList.rejected, (state) => {
                 state.loadingStatus = 'failed';
+
                 state.wordList = getFilteredWordList(state.wordLength);
+                state.wordToGuess = state.wordList[Math.floor(Math.random()
+                    * state.wordList.length)];
+
                 state.language = initialState.language;
                 state.languageList = initialState.languageList
             })

@@ -20,7 +20,7 @@ import polish from "simple-keyboard-layouts/build/layouts/polish"
 import russian from "simple-keyboard-layouts/build/layouts/russian"
 import spanish from "simple-keyboard-layouts/build/layouts/spanish"
 import swedish from "simple-keyboard-layouts/build/layouts/swedish"
-import telugu from "simple-keyboard-layouts/build/layouts/telugu"
+// import telugu from "simple-keyboard-layouts/build/layouts/telugu"
 import turkish from "simple-keyboard-layouts/build/layouts/turkish"
 import ukrainian from "simple-keyboard-layouts/build/layouts/ukrainian"
 import georgian from "simple-keyboard-layouts/build/layouts/georgian"
@@ -48,7 +48,7 @@ const keyboardLayouts = {
     rus: russian,
     spa: spanish,
     swe: swedish,
-    tel: telugu,
+    // tel: telugu,
     tur: turkish,
     ukr: ukrainian,
     kat: georgian,
@@ -77,7 +77,7 @@ const languageCodeMapping = {
     rus: "russian",
     spa: "spanish",
     swe: "swedish",
-    tel: "telugu",
+    // tel: "telugu",
     tur: "turkish",
     ukr: "ukrainian",
     kat: "georgian",

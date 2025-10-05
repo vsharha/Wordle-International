@@ -2,8 +2,6 @@ import { useSelector } from "react-redux";
 import { getGuesses, getWordToGuess } from "../wordleSlice.js";
 
 function getColors(wordToGuess, word) {
-    if(!word || !wordToGuess) return [];
-
     let colors = Array(word.length).fill("guessed");
     let used = Array(word.length).fill(false);
 

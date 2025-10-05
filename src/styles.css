@@ -117,7 +117,7 @@
     }
 
     .loader {
-        @apply border-5 border-neutral-300 border-t-neutral-500 rounded-full aspect-square h-full animate-spin
+        @apply border-5 border-neutral-300 border-t-neutral-500 rounded-full aspect-square h-full animate-spin dark:border-neutral-500 dark:border-t-neutral-300
     }
 }
 
