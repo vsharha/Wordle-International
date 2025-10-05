@@ -6,7 +6,7 @@ function getColors(wordToGuess, word) {
     let used = Array(word.length).fill(false);
 
     for (let i = 0; i < word.length; i++) {
-        if (word.at(i) === wordToGuess.at(i)) {
+        if (word && word.at(i) === wordToGuess.at(i)) {
             colors[i] = "correct";
             used[i] = true;
         }
