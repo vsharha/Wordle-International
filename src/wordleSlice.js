@@ -162,7 +162,8 @@ const wordleSlice = createSlice({
             .addCase(fetchWordList.rejected, (state) => {
                 state.loadingStatus = 'failed';
                 state.wordList = getFilteredWordList(state.wordLength);
-                state.language = "eng";
+                state.language = initialState.language;
+                state.languageList = initialState.languageList
             })
             .addCase(fetchLanguageList.pending, (state) => {
                 state.loadingStatus = 'loading';
@@ -175,7 +176,7 @@ const wordleSlice = createSlice({
             })
             .addCase(fetchLanguageList.rejected, (state) => {
                 state.loadingStatus = 'failed';
-                state.languageList = ["eng"]
+                state.languageList = initialState.languageList
             });
     }
 });
