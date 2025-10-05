@@ -222,7 +222,6 @@ export const updateLanguage = (language) => (dispatch) => {
 
 export const {
     clearMessage,
-    startGame,
     updateCurrentGuess,
     submitCurrentGuess,
     setDarkMode,
