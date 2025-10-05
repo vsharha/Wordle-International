@@ -3,7 +3,7 @@ import { wordList } from "random-words";
 import { fetchLanguages, fetchWords } from "./services/fetchRandomWords.js";
 import { languageCodeMapping } from "./keyboard/getKeyboardLayout.js";
 
-function getFilteredWordList(length) {  
+function getFilteredWordList(length) {
     return wordList.filter((word)=>word.length===length)
 }
 
@@ -63,6 +63,8 @@ const wordleSlice = createSlice({
         },
         startGame(state) {
             state.status = "playing";
+            state.wordToGuess = state.wordList[Math.floor(Math.random()
+                * state.wordList.length)];
         },
         updateCurrentGuess(state, action) {
             if (state.keyboardDisabled) {
@@ -163,7 +165,8 @@ const wordleSlice = createSlice({
                 languageList: state.languageList,
                 language: state.language,
                 wordLength: state.wordLength,
-                maxAttempts: state.maxAttempts
+                maxAttempts: state.maxAttempts,
+                wordList: state.wordList
             };
         },
     },
@@ -175,15 +178,11 @@ const wordleSlice = createSlice({
             .addCase(fetchWordList.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.wordList = action.payload;
-                    state.wordToGuess = state.wordList[Math.floor(Math.random()
-                        * state.wordList.length)];
                 }
                 state.loadingStatus = 'idle';
             })
             .addCase(fetchWordList.rejected, (state) => {
                 state.wordList = getFilteredWordList(state.wordLength);
-                state.wordToGuess = state.wordList[Math.floor(Math.random()
-                    * state.wordList.length)];
 
                 state.language = initialState.language;
                 state.languageList = initialState.languageList
@@ -213,12 +212,12 @@ export const getIsDarkMode = (state) => state.wordle.darkMode;
 export const getLanguage = (state) => state.wordle.language
 export const getLanguageList = (state) => state.wordle.languageList
 
-export const startGameAndFetch = () => (dispatch, getState) => {
+export const startGameAndFetch = () => async (dispatch, getState) => {
     const { languageList } = getState().wordle
     if(languageList.length <= 1) {
-        dispatch(fetchLanguageList());
+        await dispatch(fetchLanguageList());
     }
-    dispatch(fetchWordList());
+    await dispatch(fetchWordList());
     dispatch({ type: "wordle/startGame" });
 }
 
