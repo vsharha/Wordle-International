@@ -38,8 +38,13 @@ export const fetchWordList = createAsyncThunk(
 
 export const fetchLanguageList = createAsyncThunk(
     'wordle/fetchLanguageList',
-    async (_, {rejectWithValue}) => {
+    async (_, {getState, rejectWithValue}) => {
         try {
+            const {currentLanguages} = getState().wordle
+            if (currentLanguages) {
+                return currentLanguages;
+            }
+
             const languages = await fetchLanguages();
             return languages
                 .filter((code)=>languageCodeMapping[code])
@@ -188,7 +193,9 @@ const wordleSlice = createSlice({
                 state.languageList = initialState.languageList
             })
             .addCase(fetchLanguageList.pending, (state) => {
-                state.message = {message: "Loading", type: "loading"};
+                setTimeout(()=> {
+                    if (!state.languages) state.message = { message: "Loading", type: "loading" };
+                }, 1000);
             })
             .addCase(fetchLanguageList.fulfilled, (state, action) => {
                 if (action.payload) {

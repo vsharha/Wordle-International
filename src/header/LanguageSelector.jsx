@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getLanguage, getLanguageList, updateLanguage } from "../wordleSlice.js";
+import { fetchLanguageList, getLanguage, getLanguageList, updateLanguage } from "../wordleSlice.js";
 import { languageCodeMapping } from "../keyboard/getKeyboardLayout.js";
 import HeaderButton from "./HeaderButton.jsx";
 import { FaCheck, FaChevronDown, FaGlobe } from "react-icons/fa6";
@@ -14,7 +14,15 @@ function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false)
   const language = useSelector(getLanguage)
 
+  const dispatch = useDispatch()
+
   const ref = useRef(null)
+
+  useEffect(() => {
+    if(isOpen) {
+      dispatch(fetchLanguageList())
+    }
+  }, [isOpen, dispatch]);
 
   return (
     <div className="relative text-font dark:text-font-dark h-full">

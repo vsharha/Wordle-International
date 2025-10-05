@@ -9,8 +9,8 @@ function KeyboardLine({ line, shrink }) {
     <div
       className={twMerge("flex flex-row w-full justify-center h-16 justify-center md:h-16", shrink ? "h-12": "")}
     >
-      {line.map(({letter, width}) => (
-        <KeyboardButton letter={letter} color={colorMap[letter]} key={letter} width={width}/>
+      {line.map(({letter, width}, i) => (
+        <KeyboardButton letter={letter} color={colorMap[letter]} key={i} width={width}/>
       ))}
     </div>
   );
