@@ -141,7 +141,10 @@ const wordleSlice = createSlice({
                 ...initialState,
                 message: {message: "Game has been reset", type: "reset"},
                 darkMode: state.darkMode,
-                languageList: state.languageList
+                languageList: state.languageList,
+                language: state.language,
+                wordLength: state.wordLength,
+                maxAttempts: state.maxAttempts
             };
         },
     },
