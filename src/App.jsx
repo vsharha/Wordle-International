@@ -38,7 +38,7 @@ function App() {
     if (language) {
       dispatch(setLanguage(language))
     }
-  }, [searchParams, dispatch]);
+  }, []);
 
   const wordLength = useSelector(getWordLength)
   const maxAttempts = useSelector(getMaxAttempts)
