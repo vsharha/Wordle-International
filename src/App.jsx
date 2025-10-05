@@ -2,7 +2,7 @@ import Keyboard from "./keyboard/Keyboard.jsx";
 import Display from "./display/Display.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchLanguageList, fetchWordList, getStatus, startGame } from "./wordleSlice.js";
+import { getStatus, startGameAndFetch } from "./wordleSlice.js";
 import Header from "./header/Header.jsx";
 import WinScreen from "./ui/WinScreen.jsx";
 import useKeyboard from "./hooks/useKeyboard.js";
@@ -11,9 +11,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchLanguageList())
-    dispatch(fetchWordList());
-    dispatch(startGame());
+    dispatch(startGameAndFetch())
   }, [dispatch]);
 
   useKeyboard();

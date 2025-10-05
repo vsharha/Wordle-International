@@ -192,11 +192,19 @@ export const getIsDarkMode = (state) => state.wordle.darkMode;
 export const getLanguage = (state) => state.wordle.language
 export const getLanguageList = (state) => state.wordle.languageList
 
+export const startGameAndFetch = () => (dispatch, getState) => {
+    const { languageList } = getState().wordle
+    if(languageList.length <= 1) {
+        dispatch(fetchLanguageList());
+    }
+    dispatch(fetchWordList());
+    dispatch({ type: "wordle/startGame" });
+}
+
 export const updateWordLength = (length) => (dispatch) => {
     dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setWordLength", payload: Number(length) });
-    dispatch(fetchWordList());
-    dispatch({ type: "wordle/startGame" });
+    dispatch(startGameAndFetch());
 };
 
 export const updateMaxAttempts = (attempts) => (dispatch) => {
@@ -208,8 +216,7 @@ export const updateMaxAttempts = (attempts) => (dispatch) => {
 export const updateLanguage = (language) => (dispatch) => {
     dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setLanguage", payload: language });
-    dispatch(fetchWordList());
-    dispatch({ type: "wordle/startGame" });
+    dispatch(startGameAndFetch());
 };
 
 export const {
