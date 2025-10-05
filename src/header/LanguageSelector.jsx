@@ -25,13 +25,13 @@ function LanguageSelector() {
         </span>
       </HeaderButton>
       <Dropdown isOpen={isOpen} setIsOpen={setIsOpen} buttonRef={ref}>
-        <Options />
+        <Options setIsOpen={setIsOpen}/>
       </Dropdown>
     </div>
   );
 }
 
-function Options() {
+function Options({setIsOpen}) {
   const dispatch = useDispatch();
   const languageList = useSelector(getLanguageList)
   const currentLanguage = useSelector(getLanguage)
@@ -42,8 +42,13 @@ function Options() {
         const language = languageCodeMapping[code]
         const isCurrent = currentLanguage === code
 
-        return <button className={twMerge("w-full flex hover:brightness-90 bg-back-secondary dark:bg-back-secondary-dark px-2 py-1 pr-6 items-center gap-2")} onClick={()=>isCurrent?null:
-          dispatch(updateLanguage(code))} key={language}>
+        return <button className={twMerge("w-full flex hover:brightness-90 bg-back-secondary dark:bg-back-secondary-dark px-2 py-1 pr-6 items-center gap-2")} onClick={()=>{
+          setIsOpen(false);
+
+          if (!isCurrent) {
+            dispatch(updateLanguage(code))
+          }
+        }} key={language}>
           <span>{capitalize(language)}</span> <span className="w-5 flex items-center justify-center">
           {isCurrent && <FaCheck/>}
         </span>
