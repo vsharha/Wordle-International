@@ -3,6 +3,7 @@ import { getCurrentGuess, getGuesses, getMaxAttempts, getStatus } from "../wordl
 import DisplayWord from "./DisplayWord.jsx";
 import { Toaster } from "react-hot-toast";
 import useMessage from "../hooks/useMessage.jsx";
+import { ToasterWithMax } from "../hooks/useMaxToasts.jsx";
 
 function Display() {
   const currentGuess = useSelector(getCurrentGuess);
@@ -30,7 +31,7 @@ function Display() {
 
   return (
     <div className="flex flex-col w-full gap-1.5 justify-center h-full md:h-fit relative p-3">
-      <Toaster position="top-center" toastOptions={{duration:1000}} containerStyle={{position:"relative"}}/>
+      <ToasterWithMax max={3} position="top-center" toastOptions={{duration:1500}} containerStyle={{position:"relative", zIndex:5 }} />
       {normalised.map((guess, i) => (
         <DisplayWord word={guess} key={i} wordIndex={i} />
       ))}
