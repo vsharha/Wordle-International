@@ -153,9 +153,13 @@ const wordleSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchWordList.pending, (state) => {
-                state.loadingStatus = 'loading';
+                state.message = 'Loading';
+                state.messageType = 'loading'
             })
             .addCase(fetchWordList.fulfilled, (state, action) => {
+                state.message = initialState.message
+                state.messageType = initialState.messageType
+
                 if (action.payload) {
                     state.wordList = action.payload;
                     state.wordToGuess = state.wordList[Math.floor(Math.random()
@@ -164,7 +168,8 @@ const wordleSlice = createSlice({
                 state.loadingStatus = 'idle';
             })
             .addCase(fetchWordList.rejected, (state) => {
-                state.loadingStatus = 'failed';
+                state.message = initialState.message
+                state.messageType = initialState.messageType
 
                 state.wordList = getFilteredWordList(state.wordLength);
                 state.wordToGuess = state.wordList[Math.floor(Math.random()
@@ -174,16 +179,21 @@ const wordleSlice = createSlice({
                 state.languageList = initialState.languageList
             })
             .addCase(fetchLanguageList.pending, (state) => {
-                state.loadingStatus = 'loading';
+                state.message = 'Loading';
+                state.messageType = 'loading'
             })
             .addCase(fetchLanguageList.fulfilled, (state, action) => {
+                state.message = initialState.message
+                state.messageType = initialState.messageType
+
                 if (action.payload) {
                     state.languageList = action.payload;
                 }
-                state.loadingStatus = 'idle';
             })
             .addCase(fetchLanguageList.rejected, (state) => {
-                state.loadingStatus = 'failed';
+                state.message = initialState.message
+                state.messageType = initialState.messageType
+
                 state.languageList = initialState.languageList
             });
     }

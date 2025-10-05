@@ -7,14 +7,17 @@ export default function useMessage() {
     const reduxMessageType = useSelector(getMessageType);
     const status = useSelector(getStatus);
 
-    const [message, setMessage] = useState();
-    const [messageType, setMessageType] = useState();
+    const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState("");
 
     const [isVisible, setIsVisible] = useState(false);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if(!reduxMessage) {
+            setIsVisible(false)
+        }
         if (reduxMessage) {
             setMessage(reduxMessage);
             setIsVisible(true);
@@ -26,7 +29,7 @@ export default function useMessage() {
     }, [reduxMessage, reduxMessageType, dispatch, status]);
 
     function handleTransitionEnd() {
-        if (isVisible && status === "playing") {
+        if (messageType==="error") {
             const timeout = setTimeout(() => setIsVisible(false), 1000);
 
             return () => clearTimeout(timeout);
