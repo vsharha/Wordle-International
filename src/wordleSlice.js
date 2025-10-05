@@ -122,9 +122,23 @@ const wordleSlice = createSlice({
             }
         },
         setMaxAttempts(state, action) {
+            if(action.payload < 4) {
+                state.maxAttempts = 4
+                return
+            } else if (action.payload > 8) {
+                state.maxAttempts = 8
+                return
+            }
             state.maxAttempts = action.payload;
         },
         setWordLength(state, action) {
+            if(action.payload < 2) {
+                state.wordLength = 2
+                return
+            } else if (action.payload > 8) {
+                state.wordLength = 8
+                return
+            }
             state.wordLength = action.payload;
         },
         setDarkMode(state, action) {
@@ -134,7 +148,8 @@ const wordleSlice = createSlice({
             state.keyboardDisabled = action.payload;
         },
         setLanguage(state, action) {
-            state.language = action.payload
+            if(state.languageList.includes(action.payload))
+                state.language = action.payload
         },
         resetGame(state) {
             return {
@@ -226,7 +241,10 @@ export const {
     updateCurrentGuess,
     submitCurrentGuess,
     setDarkMode,
-    setKeyboardDisabled
+    setKeyboardDisabled,
+    setWordLength,
+    setMaxAttempts,
+    setLanguage
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;
