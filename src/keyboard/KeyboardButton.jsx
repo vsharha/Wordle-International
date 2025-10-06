@@ -11,6 +11,10 @@ function KeyboardButton({ letter, color, width }) {
   const isBackspace = letter === "Backspace";
 
   function handleClick() {
+    if (!letter) {
+      return;
+    }
+
     if (isEnter) {
       dispatch(submitCurrentGuess());
       return;
@@ -21,7 +25,7 @@ function KeyboardButton({ letter, color, width }) {
 
   return (
     <button
-      className="px-0.5"
+      className={twMerge("px-0.5", letter? "cursor-pointer":"cursor-default")}
       style={{width:`${2.75*width}rem`}}
       onClick={() => handleClick(letter)}
     >
@@ -29,7 +33,7 @@ function KeyboardButton({ letter, color, width }) {
       <div className={twMerge(
         "flex items-center justify-center bg-button text-font dark:bg-button-dark dark:text-font-dark font-bold uppercase rounded-sm text-xl h-full",
         isEnter ? "text-xs" : "",
-        color ? themeColors[color] : "",
+        color ? themeColors[color] : ""
       )}>
         {!isBackspace ? <span>{letter}</span> : <IoBackspaceOutline size={24} />}
       </div>
