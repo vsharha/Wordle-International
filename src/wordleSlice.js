@@ -13,14 +13,15 @@ const initialState = {
     maxAttempts: 6,
     wordLength: 5,
     status: "idle",
-    loadingStatus: "idle",
     message: {},
     wordToGuess: "",
     darkMode: false,
     keyboardDisabled: false,
     language: "eng",
     wordList: [],
-    languageList: ["eng"]
+    languageList: ["eng"],
+    loadingStatus: "idle",
+    loadingRequestId: undefined
 };
 
 
@@ -129,7 +130,7 @@ const wordleSlice = createSlice({
 
             if (state.guesses.length === state.maxAttempts) {
                 state.status = "lost";
-                state.message = {message: state.wordToGuess.toUpperCase(), type: ""};
+                state.message = {message: state.wordToGuess.toUpperCase(), type: "lost"};
             }
         },
         setMaxAttempts(state, action) {
@@ -177,22 +178,29 @@ const wordleSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWordList.pending, (state) => {
-                state.loadingStatus = "loading"
+            .addCase(fetchWordList.pending, (state, action) => {
+                state.loadingStatus = "loading";
+                state.loadingRequestId = action.meta.requestId;
             })
             .addCase(fetchWordList.fulfilled, (state, action) => {
+                if (state.loadingRequestId !== action.meta.requestId) return;
+
                 if (action.payload) {
                     state.wordList = action.payload;
                 }
                 state.loadingStatus = "idle"
+                state.loadingRequestId = undefined;
             })
-            .addCase(fetchWordList.rejected, (state) => {
+            .addCase(fetchWordList.rejected, (state, action) => {
+                if (state.loadingRequestId !== action.meta.requestId) return;
+
                 state.wordList = getFilteredWordList(state.wordLength);
 
                 state.language = initialState.language;
                 state.languageList = initialState.languageList
 
                 state.loadingStatus = "failed"
+                state.loadingRequestId = undefined;
             })
             .addCase(fetchLanguageList.pending, (state) => {
                 setTimeout(()=> {

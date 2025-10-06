@@ -15,7 +15,7 @@ export default function useMessage() {
     useEffect(() => {
       if (reduxMessage.message && loadingStatus !== "loading") {
         toast.custom(
-          (t) => <CustomToast t={t} message={reduxMessage.message} type={reduxMessage.type} />
+          (t) => <CustomToast t={t} message={reduxMessage.message} type={reduxMessage.type}/>, reduxMessage.type==="lost"?{duration: Infinity}:null
         );
         dispatch(clearMessage());
       }
