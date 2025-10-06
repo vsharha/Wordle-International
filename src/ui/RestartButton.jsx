@@ -31,7 +31,7 @@ function RestartButton() {
   }
 
   return (
-    <div className={twMerge("backdrop-blur-xs absolute -bottom-5 w-full h-[120%] flex justify-center items-center", visible?"animate-fade-in":"")} onAnimationEnd={onFadeInEnd} onClick={(e)=>e.stopPropagation()}>
+    <div className={twMerge("backdrop-blur-xs absolute bottom-0 w-full h-full flex justify-center items-center", visible?"animate-fade-in":"")} onAnimationEnd={onFadeInEnd} onClick={(e)=>e.stopPropagation()}>
       <button className="uppercase text-2xl font-bold border-2 border-black w-fit p-5 rounded-lg cursor-pointer bg-back dark:bg-back-dark mb-15" onClick={handleClick}>Restart</button>
     </div>
   );

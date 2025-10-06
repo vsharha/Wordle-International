@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { themeColors } from "../shared/themeColors.js";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getLanguage, getMaxAttempts, getMessage, getWordLength } from "../wordleSlice.js";
+import { getLanguage, getMaxAttempts, getWordLength } from "../wordleSlice.js";
 
 function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd, skip }) {
   const [doPopIn, setDoPopIn] = useState(popIn);
@@ -47,7 +47,7 @@ function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd, skip }) {
         }
       }}
       className={twMerge(
-        "uppercase flex items-center justify-center aspect-square flex-1 max-w-15 max-h-15 border-2 border-border font-bold dark:border-border-dark text-3xl text-font dark:text-font-dark",
+        "uppercase flex items-center justify-center aspect-square flex-1 max-w-14 max-h-14 border-2 border-border font-bold dark:border-border-dark text-3xl text-font dark:text-font-dark md:max-w-15 md:max-h-15",
         letter ? "border-border-letter dark:border-border-letter-dark" : "",
         skip || (color && hasRotated) ? themeColors[color] : "",
         doPopIn ? "animate-pop-in" : "",

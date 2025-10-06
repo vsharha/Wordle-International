@@ -15,7 +15,7 @@ function App() {
         <div className="flex-1 md:flex-none z-5">
           <Display />
         </div>
-        <div className="h-50 relative z-4">
+        <div className="h-50 relative z-4 py-2">
           <Keyboard />
           <RestartButton />
         </div>
