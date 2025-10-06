@@ -168,8 +168,11 @@ const wordleSlice = createSlice({
             state.keyboardDisabled = action.payload;
         },
         setLanguage(state, action) {
-            if(state.languageList.includes(action.payload))
-                state.language = action.payload
+            if(!Object.keys(languageCodeMapping).includes(action.payload.toLowerCase())) {
+                state.language = initialState.language;
+                return;
+            }
+            state.language = action.payload.toLowerCase()
         },
         resetGame(state) {
             return {
@@ -204,9 +207,6 @@ const wordleSlice = createSlice({
 
                 state.wordList = getFilteredWordList(state.wordLength);
 
-                state.language = initialState.language;
-                state.languageList = initialState.languageList
-
                 state.wordLoadingStatus = "failed"
                 state.loadingRequestId = undefined;
             })
@@ -216,11 +216,20 @@ const wordleSlice = createSlice({
             .addCase(fetchLanguageList.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.languageList = action.payload;
+
+                    if(state.languageList.includes(state.language.toLowerCase())){
+                        state.language = state.language.toLowerCase()
+                    } else {
+                        state.language = initialState.language
+                    }
+
                     state.languageLoadingStatus = "idle";
                 }
             })
             .addCase(fetchLanguageList.rejected, (state) => {
                 state.languageList = initialState.languageList
+                state.language = initialState.language;
+
                 state.languageLoadingStatus = "failed";
             });
     }
