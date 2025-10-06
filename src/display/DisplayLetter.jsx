@@ -47,7 +47,7 @@ function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd, skip }) {
         }
       }}
       className={twMerge(
-        "uppercase flex items-center justify-center aspect-square flex-1 max-w-12.5 max-h-12.5 border-2 border-border font-bold dark:border-border-dark text-3xl text-font dark:text-font-dark md:max-w-15 md:max-h-15",
+        "uppercase flex items-center justify-center aspect-square flex-1 max-w-15 max-h-15 border-2 border-border font-bold dark:border-border-dark text-3xl text-font dark:text-font-dark",
         letter ? "border-border-letter dark:border-border-letter-dark" : "",
         skip || (color && hasRotated) ? themeColors[color] : "",
         doPopIn ? "animate-pop-in" : "",
