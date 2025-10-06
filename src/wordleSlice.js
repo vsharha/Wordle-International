@@ -20,7 +20,7 @@ const initialState = {
     language: "eng",
     wordLoadingStatus: "idle",
     languageLoadingStatus: "idle",
-    loadingRequestId: undefined,
+    wordLoadingRequestId: undefined,
     languageList: ["eng"],
     wordList: [],
 };
@@ -29,7 +29,7 @@ const initialState = {
 export const fetchWordList = createAsyncThunk(
     'wordle/fetchWordList',
     async (_, {getState, rejectWithValue}) => {
-        const {language, wordLength} = getState().wordle;
+        const {language, wordLength} = getState()["wordle"];
         try {
             return fetchWords(language, wordLength);
         } catch (err) {
@@ -42,7 +42,7 @@ export const fetchLanguageList = createAsyncThunk(
     'wordle/fetchLanguageList',
     async (_, {getState, rejectWithValue}) => {
         try {
-            const {currentLanguages} = getState().wordle
+            const {currentLanguages} = getState()["wordle"]
             if (currentLanguages) {
                 return currentLanguages;
             }
@@ -202,10 +202,7 @@ const wordleSlice = createSlice({
                 state.loadingRequestId = undefined;
             })
             .addCase(fetchLanguageList.pending, (state) => {
-                setTimeout(()=> {
-                    if (!state.languages)
-                        state.languageLoadingStatus = "loading";
-                }, 1000);
+                state.languageLoadingStatus = "loading";
             })
             .addCase(fetchLanguageList.fulfilled, (state, action) => {
                 if (action.payload) {
