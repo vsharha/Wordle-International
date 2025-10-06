@@ -61,6 +61,15 @@ export const fetchLanguageList = createAsyncThunk(
     }
 );
 
+function includesLowerCase(word, list) {
+    for(let entry of list) {
+        if (word.toLowerCase() === entry.toLowerCase()) {
+            return true
+        }
+    }
+    return false
+}
+
 const wordleSlice = createSlice({
     name: "wordle",
     initialState,
@@ -112,7 +121,7 @@ const wordleSlice = createSlice({
                 return;
             }
 
-            if (!state.wordList.includes(state.currentGuess)) {
+            if (!includesLowerCase(state.currentGuess, state.wordList)) {
                 state.message = {message: "Not in word list", type: "error"};
 
                 return;
@@ -121,7 +130,7 @@ const wordleSlice = createSlice({
             state.guesses.push(state.currentGuess);
             state.currentGuess = "";
 
-            if (state.guesses.at(-1) === state.wordToGuess) {
+            if (state.guesses.at(-1).toLowerCase() === state.wordToGuess.toLowerCase()) {
                 state.status = "won";
 
                 return;

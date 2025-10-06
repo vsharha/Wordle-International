@@ -5,17 +5,20 @@ function getColors(wordToGuess, word) {
     let colors = Array(word.length).fill("guessed");
     let used = Array(word.length).fill(false);
 
-    for (let i = 0; i < word.length; i++) {
-        if (word.at(i) === wordToGuess.at(i)) {
+    let wordToGuessLower = wordToGuess.toLowerCase()
+    let wordLower = word.toLowerCase()
+
+    for (let i = 0; i < wordLower.length; i++) {
+        if (wordLower.at(i) === wordToGuessLower.at(i)) {
             colors[i] = "correct";
             used[i] = true;
         }
     }
 
-    for (let i = 0; i < word.length; i++) {
+    for (let i = 0; i < wordLower.length; i++) {
         if (colors[i] === "guessed") {
-            for (let j = 0; j < word.length; j++) {
-                if (!used[j] && word.at(i) === wordToGuess.at(j)) {
+            for (let j = 0; j < wordLower.length; j++) {
+                if (!used[j] && wordLower.at(i) === wordToGuessLower.at(j)) {
                     colors[i] = "present";
                     used[j] = true;
                     break;
@@ -24,7 +27,7 @@ function getColors(wordToGuess, word) {
         }
     }
 
-    return word.split("").map((letter, i) => ({
+    return wordLower.split("").map((letter, i) => ({
         letter,
         color: colors.at(i),
     }));
