@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import toast, { Toaster, useToasterStore } from "react-hot-toast";
 import useMessage from "./useMessage.jsx";
 import { useSelector } from "react-redux";
-import { getWordLoadingStatus } from "../wordleSlice.js";
+import { getStatus, getWordLoadingStatus } from "../wordleSlice.js";
 import CustomToast from "../ui/CustomToast.jsx";
 
 function useMaxToasts(max) {
@@ -36,6 +36,14 @@ function useMaxToasts(max) {
       }, 300);
     }
   }, [wordLoadingStatus]);
+
+  const status = useSelector(getStatus);
+
+  useEffect(() => {
+    if (status === "playing") {
+      toast.dismiss();
+    }
+  }, [status]);
 }
 
 export function ToasterWithMax({ max = 10, ...props }) {

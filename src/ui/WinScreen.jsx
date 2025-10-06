@@ -3,10 +3,17 @@ import { useSelector } from "react-redux";
 import { getStatus, getWordToGuess } from "../wordleSlice.js";
 import CloseButton from "./CloseButton.jsx";
 import Modal from "./Modal.jsx";
+import { useEffect, useState } from "react";
 
-function WinScreen({ open, setIsOpen }) {
+function WinScreen() {
   const wordToGuess = useSelector(getWordToGuess);
   const status = useSelector(getStatus);
+
+  const [open, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (status === "won") setIsOpen(true);
+  }, [status]);
 
   return (
     <Modal open={open} onClose={() => setIsOpen(false)}>

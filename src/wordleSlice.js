@@ -12,7 +12,7 @@ const initialState = {
     currentGuess: "",
     maxAttempts: 6,
     wordLength: 5,
-    status: "idle",
+    status: "playing",
     message: {},
     wordToGuess: "",
     darkMode: false,
@@ -250,7 +250,7 @@ export const getWordLoadingStatus = (state) => state.wordle.wordLoadingStatus;
 
 export const startGameAndFetch = () => async (dispatch, getState) => {
     const { languageList } = getState().wordle
-    if(languageList.length <= 1) {
+    if(languageList === initialState.languageList) {
         await dispatch(fetchLanguageList());
     }
     await dispatch(fetchWordList());
@@ -283,7 +283,9 @@ export const {
     setKeyboardDisabled,
     setWordLength,
     setMaxAttempts,
-    setLanguage
+    setLanguage,
+    startGame,
+    resetGame
 } = wordleSlice.actions;
 
 export default wordleSlice.reducer;

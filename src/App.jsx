@@ -16,60 +16,23 @@ import Header from "./header/Header.jsx";
 import WinScreen from "./ui/WinScreen.jsx";
 import useKeyboard from "./hooks/useKeyboard.js";
 import { useSearchParams } from "react-router-dom";
+import useGame from "./hooks/useGame.js";
+import RestartButton from "./ui/RestartButton.jsx";
 
 function App() {
-  const dispatch = useDispatch();
-
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  useEffect(() => {
-    const wordLength = searchParams.get("len")
-    const maxAttempts = searchParams.get("ma")
-    const language = searchParams.get("lang")
-
-    if (wordLength) {
-      dispatch(setWordLength(Number(wordLength)))
-    }
-
-    if (maxAttempts) {
-      dispatch(setMaxAttempts(Number(maxAttempts)))
-    }
-
-    if (language) {
-      dispatch(setLanguage(language))
-    }
-  }, []);
-
-  const wordLength = useSelector(getWordLength)
-  const maxAttempts = useSelector(getMaxAttempts)
-  const language = useSelector(getLanguage)
-
-  useEffect(()=>{
-    setSearchParams({len:wordLength, ma:maxAttempts, lang:language})
-  },[wordLength, maxAttempts, language, setSearchParams])
-
-  useEffect(() => {
-    dispatch(startGameAndFetch())
-  }, [dispatch]);
-
-  useKeyboard();
-
-  const status = useSelector(getStatus);
-
-  const [isOpenWinScreen, setIsOpenWinScreen] = useState(false);
-
-  useEffect(() => {
-    if (status === "won") setIsOpenWinScreen(true);
-  }, [status]);
+  useGame();
 
   return (
     <main className="flex flex-col h-screen-dynamic">
       <Header />
       <div className="flex flex-col h-full">
         <Display />
-        <Keyboard />
+        <div className="h-75 relative">
+          <Keyboard />
+          <RestartButton />
+        </div>
       </div>
-      <WinScreen open={isOpenWinScreen} setIsOpen={setIsOpenWinScreen} />
+      <WinScreen/>
     </main>
   );
 }
