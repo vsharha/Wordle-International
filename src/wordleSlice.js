@@ -191,24 +191,24 @@ const wordleSlice = createSlice({
         builder
             .addCase(fetchWordList.pending, (state, action) => {
                 state.wordLoadingStatus = "loading";
-                state.loadingRequestId = action.meta.requestId;
+                state.wordLoadingRequestId = action.meta.requestId;
             })
             .addCase(fetchWordList.fulfilled, (state, action) => {
-                if (state.loadingRequestId !== action.meta.requestId) return;
+                if (state.wordLoadingRequestId !== action.meta.requestId) return;
 
                 if (action.payload) {
                     state.wordList = action.payload;
                 }
                 state.wordLoadingStatus = "idle"
-                state.loadingRequestId = undefined;
+                state.wordLoadingRequestId = undefined;
             })
             .addCase(fetchWordList.rejected, (state, action) => {
-                if (state.loadingRequestId !== action.meta.requestId) return;
+                if (state.wordLoadingRequestId !== action.meta.requestId) return;
 
                 state.wordList = getFilteredWordList(state.wordLength);
 
                 state.wordLoadingStatus = "failed"
-                state.loadingRequestId = undefined;
+                state.wordLoadingRequestId = undefined;
             })
             .addCase(fetchLanguageList.pending, (state) => {
                 state.languageLoadingStatus = "loading";
