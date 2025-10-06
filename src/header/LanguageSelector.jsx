@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLanguageList, getLanguage, getLanguageList, updateLanguage } from "../wordleSlice.js";
+import {
+  fetchLanguageList,
+  getLanguage,
+  getLanguageList,
+  getLanguageLoadingStatus,
+  updateLanguage,
+} from "../wordleSlice.js";
 import { languageCodeMapping } from "../keyboard/getKeyboardLayout.js";
 import HeaderButton from "./HeaderButton.jsx";
 import { FaCheck, FaChevronDown, FaGlobe } from "react-icons/fa6";
@@ -45,6 +51,8 @@ function Options({setIsOpen}) {
   const languageList = useSelector(getLanguageList)
   const currentLanguage = useSelector(getLanguage)
 
+  const languageLoadingStatus = useSelector(getLanguageLoadingStatus)
+
   return <div className="absolute right-2 mt-2 z-10 rounded-sm border-1 border-border dark:border-border-dark">
     <div className="flex flex-col w-fit bg-back-secondary dark:bg-back-secondary-dark max-h-[50dvh] overflow-auto scrollbar scrollbar-thin dark:scrollbar-thumb-neutral-600 dark:scrollbar-track-back-dark" >
       {languageList.map((code) => {
@@ -64,7 +72,7 @@ function Options({setIsOpen}) {
         </button>
       }
       )}
-      {languageList.length<=1&&<div className="flex w-full justify-center p-2"><Loader/></div>}
+      {languageList.length<=1&&languageLoadingStatus==="loading"&&<div className="flex w-full justify-center p-2"><Loader/></div>}
     </div>
   </div>
 }

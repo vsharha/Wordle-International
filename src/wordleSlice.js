@@ -18,10 +18,11 @@ const initialState = {
     darkMode: false,
     keyboardDisabled: false,
     language: "eng",
-    wordList: [],
+    wordLoadingStatus: "idle",
+    languageLoadingStatus: "idle",
+    loadingRequestId: undefined,
     languageList: ["eng"],
-    loadingStatus: "idle",
-    loadingRequestId: undefined
+    wordList: [],
 };
 
 
@@ -106,8 +107,6 @@ const wordleSlice = createSlice({
             }
 
             if (state.currentGuess.length !== state.wordLength) {
-                console.log(state.currentGuess.length)
-                console.log(state.wordLength)
                 state.message = {message: "Not enough letters", type: "error"};
 
                 return;
@@ -179,7 +178,7 @@ const wordleSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchWordList.pending, (state, action) => {
-                state.loadingStatus = "loading";
+                state.wordLoadingStatus = "loading";
                 state.loadingRequestId = action.meta.requestId;
             })
             .addCase(fetchWordList.fulfilled, (state, action) => {
@@ -188,7 +187,7 @@ const wordleSlice = createSlice({
                 if (action.payload) {
                     state.wordList = action.payload;
                 }
-                state.loadingStatus = "idle"
+                state.wordLoadingStatus = "idle"
                 state.loadingRequestId = undefined;
             })
             .addCase(fetchWordList.rejected, (state, action) => {
@@ -199,24 +198,24 @@ const wordleSlice = createSlice({
                 state.language = initialState.language;
                 state.languageList = initialState.languageList
 
-                state.loadingStatus = "failed"
+                state.wordLoadingStatus = "failed"
                 state.loadingRequestId = undefined;
             })
             .addCase(fetchLanguageList.pending, (state) => {
                 setTimeout(()=> {
                     if (!state.languages)
-                        state.loadingStatus = "loading";
+                        state.languageLoadingStatus = "loading";
                 }, 1000);
             })
             .addCase(fetchLanguageList.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.languageList = action.payload;
-                    state.loadingStatus = "idle";
+                    state.languageLoadingStatus = "idle";
                 }
             })
             .addCase(fetchLanguageList.rejected, (state) => {
                 state.languageList = initialState.languageList
-                state.loadingStatus = "failed";
+                state.languageLoadingStatus = "failed";
             });
     }
 });
@@ -231,7 +230,8 @@ export const getMessage = (state) => state.wordle.message;
 export const getIsDarkMode = (state) => state.wordle.darkMode;
 export const getLanguage = (state) => state.wordle.language;
 export const getLanguageList = (state) => state.wordle.languageList;
-export const getLoadingStatus = (state) => state.wordle.loadingStatus;
+export const getLanguageLoadingStatus = (state) => state.wordle.languageLoadingStatus;
+export const getWordLoadingStatus = (state) => state.wordle.wordLoadingStatus;
 
 export const startGameAndFetch = () => async (dispatch, getState) => {
     const { languageList } = getState().wordle

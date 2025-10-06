@@ -7,8 +7,6 @@ import { ToasterWithMax } from "../hooks/useMaxToasts.jsx";
 function Display() {
   const currentGuess = useSelector(getCurrentGuess);
 
-  useMessage();
-
   const maxAttempts = useSelector(getMaxAttempts);
 
   const status = useSelector(getStatus);
