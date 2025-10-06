@@ -26,7 +26,7 @@ function Display() {
   const normalised = getNormalisedArray(guesses);
 
   return (
-    <div className="flex flex-col w-full gap-1.5 justify-center h-full md:h-fit relative p-2">
+    <div className="flex flex-col w-full gap-1.5 justify-center h-full md:h-fit relative p-2 md:p-8">
       <ToasterWithMax max={3} position="top-center" toastOptions={{duration:1500}} containerStyle={{position:"absolute", zIndex:5 }} />
       {normalised.map((guess, i) => (
         <DisplayWord word={guess} key={i} wordIndex={i} />
