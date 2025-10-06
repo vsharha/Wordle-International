@@ -165,7 +165,7 @@ const wordleSlice = createSlice({
         resetGame(state) {
             return {
                 ...initialState,
-                message: {message: "Game has been reset", type: "reset"},
+                // message: {message: "Game has been reset", type: "reset"},
                 darkMode: state.darkMode,
                 languageList: state.languageList,
                 language: state.language,
@@ -178,32 +178,37 @@ const wordleSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchWordList.pending, (state) => {
-                state.message = {message: "Loading", type: "loading"};
+                state.loadingStatus = "loading"
             })
             .addCase(fetchWordList.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.wordList = action.payload;
                 }
-                state.loadingStatus = 'idle';
+                state.loadingStatus = "idle"
             })
             .addCase(fetchWordList.rejected, (state) => {
                 state.wordList = getFilteredWordList(state.wordLength);
 
                 state.language = initialState.language;
                 state.languageList = initialState.languageList
+
+                state.loadingStatus = "failed"
             })
             .addCase(fetchLanguageList.pending, (state) => {
                 setTimeout(()=> {
-                    if (!state.languages) state.message = { message: "Loading", type: "loading" };
+                    if (!state.languages)
+                        state.loadingStatus = "loading";
                 }, 1000);
             })
             .addCase(fetchLanguageList.fulfilled, (state, action) => {
                 if (action.payload) {
                     state.languageList = action.payload;
+                    state.loadingStatus = "idle";
                 }
             })
             .addCase(fetchLanguageList.rejected, (state) => {
                 state.languageList = initialState.languageList
+                state.loadingStatus = "failed";
             });
     }
 });
@@ -216,8 +221,9 @@ export const getStatus = (state) => state.wordle.status;
 export const getWordToGuess = (state) => state.wordle.wordToGuess;
 export const getMessage = (state) => state.wordle.message;
 export const getIsDarkMode = (state) => state.wordle.darkMode;
-export const getLanguage = (state) => state.wordle.language
-export const getLanguageList = (state) => state.wordle.languageList
+export const getLanguage = (state) => state.wordle.language;
+export const getLanguageList = (state) => state.wordle.languageList;
+export const getLoadingStatus = (state) => state.wordle.loadingStatus;
 
 export const startGameAndFetch = () => async (dispatch, getState) => {
     const { languageList } = getState().wordle
