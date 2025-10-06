@@ -12,10 +12,10 @@ function App() {
     <main className="flex flex-col h-screen-dynamic">
       <Header />
       <div className="flex flex-col h-full">
-        <div className="flex-1 md:flex-none">
+        <div className="flex-1 md:flex-none z-5">
           <Display />
         </div>
-        <div className="h-50 relative">
+        <div className="h-50 relative z-4">
           <Keyboard />
           <RestartButton />
         </div>
