@@ -26,8 +26,10 @@ function App() {
     <main className="flex flex-col h-screen-dynamic">
       <Header />
       <div className="flex flex-col h-full">
-        <Display />
-        <div className="h-75 relative">
+        <div className="flex-1 md:flex-none">
+          <Display />
+        </div>
+        <div className="h-50 relative">
           <Keyboard />
           <RestartButton />
         </div>

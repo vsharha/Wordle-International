@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { getCurrentGuess, getGuesses, getMaxAttempts, getStatus } from "../wordleSlice.js";
 import DisplayWord from "./DisplayWord.jsx";
-import useMessage from "../hooks/useMessage.jsx";
 import { ToasterWithMax } from "../hooks/useMaxToasts.jsx";
 
 function Display() {

@@ -3,8 +3,6 @@ import { useKeyboardColors } from "../hooks/useColors.js";
 import { getNormalizedLayout } from "./getKeyboardLayout.js";
 import { useSelector } from "react-redux";
 import { getLanguage, getStatus } from "../wordleSlice.js";
-import { twMerge } from "tailwind-merge";
-import { useEffect, useState } from "react";
 
 function Keyboard() {
   const language = useSelector(getLanguage)
