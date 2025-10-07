@@ -24,21 +24,21 @@ function KeyboardButton({ letter, color, width }) {
   }
 
   return (
-    <button
+    <div
       className={twMerge("px-0.5", letter? "cursor-pointer":"cursor-default")}
       style={{width:`${2.75*width}rem`}}
       onClick={() => handleClick(letter)}
     >
       { letter &&
-      <div className={twMerge(
-        "flex items-center justify-center bg-button text-font dark:bg-button-dark dark:text-font-dark font-bold uppercase rounded-sm text-xl h-full",
+      <button className={twMerge(
+        "w-full flex items-center justify-center bg-button text-font dark:bg-button-dark dark:text-font-dark font-bold uppercase rounded-sm text-xl h-full",
         isEnter ? "text-xs" : "",
         color ? themeColors[color] : ""
       )}>
         {!isBackspace ? <span>{letter}</span> : <IoBackspaceOutline size={24} />}
-      </div>
+      </button>
       }
-    </button>
+    </div>
   );
 }
 

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { getCurrentGuess, getGuesses, getMaxAttempts, getStatus } from "../wordleSlice.js";
 import DisplayWord from "./DisplayWord.jsx";
 import { ToasterWithMax } from "../hooks/useMaxToasts.jsx";
+import GraphemeSplitter from "grapheme-splitter";
 
 function Display() {
   const currentGuess = useSelector(getCurrentGuess);
@@ -10,14 +11,17 @@ function Display() {
 
   const status = useSelector(getStatus);
 
+  var splitter = new GraphemeSplitter()
+
   function getNormalisedArray(array) {
     if (status === "lost") return array;
 
-    let result = [...array, currentGuess];
+    let result = [...array, currentGuess].map((guess) => splitter.splitGraphemes(guess))
 
     for (let i = 0; i <= maxAttempts - array.length - 2; i++) {
       result.push("");
     }
+
     return result;
   }
 

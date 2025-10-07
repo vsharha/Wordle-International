@@ -2,9 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { wordList } from "random-words";
 import { fetchLanguages, fetchWords } from "./services/fetchRandomWords.js";
 import { languageCodeMapping } from "./keyboard/getKeyboardLayout.js";
+import GraphemeSplitter from "grapheme-splitter";
+
+const splitter = new GraphemeSplitter()
 
 function getFilteredWordList(length) {
-    return wordList.filter((word)=>word.length===length)
+    return wordList.filter((word)=>splitter.splitGraphemes(word).length===length)
 }
 
 const initialState = {
@@ -96,7 +99,7 @@ const wordleSlice = createSlice({
                 return;
             }
 
-            if (action.payload && state.currentGuess.length < state.wordLength) {
+            if (action.payload && splitter.splitGraphemes(state.currentGuess).length < state.wordLength) {
                 state.currentGuess += action.payload;
             }
         },
@@ -115,7 +118,7 @@ const wordleSlice = createSlice({
                 return;
             }
 
-            if (state.currentGuess.length !== state.wordLength) {
+            if (splitter.splitGraphemes(state.currentGuess).length !== state.wordLength) {
                 state.message = {message: "Not enough letters", type: "error"};
 
                 return;
