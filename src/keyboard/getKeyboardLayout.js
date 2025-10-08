@@ -88,18 +88,26 @@ export default function getKeyboardLayout(lang) {
             .map((line) => line.filter((key) => isAllowedKey(key, lang)))
         : [];
 
-    let processedLayout = defaultKeys.map((defaultLine, i) => {
-        const shiftLine = shiftKeys[i] || [];
-        const combined = [...defaultLine];
+    let processedLayout = [];
 
-        for (const key of shiftLine) {
-            if (!combined.some(k => k.toLowerCase() === key.toLowerCase())) {
-                combined.push(key);
-            }
+    for (let i = 0; i < defaultKeys.length; i++) {
+        const defaultLine = defaultKeys[i];
+        const shiftLine = shiftKeys[i] || [];
+
+        // Add shift row with only keys not in default row
+        const shiftOnlyKeys = shiftLine.filter(key =>
+            !defaultLine.some(k => k.toLowerCase() === key.toLowerCase())
+        );
+
+        if (shiftOnlyKeys.length > 0) {
+            processedLayout.push(shiftOnlyKeys);
         }
 
-        return combined;
-    }).filter(line => line.length > 0);
+        // Add default (non-shift) row
+        if (defaultLine.length > 0) {
+            processedLayout.push(defaultLine);
+        }
+    }
 
     if(processedLayout.length === 0) {
         return null

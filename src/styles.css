@@ -83,7 +83,7 @@
     --animate-shake: shake 0.25s linear;
     --animate-pop-in: pop-in 0.1s linear;
     --animate-rotate: rotate 0.35s linear;
-    --animate-fade-in: fade-in 0.1s linear;
+    --animate-fade-in: fade-in 0.2s linear;
     --animate-spin: spin 1.5s linear infinite;
 }
 
