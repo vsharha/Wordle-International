@@ -45,12 +45,12 @@ export default function useGame() {
   const language = useSelector(getLanguage);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams();
     params.set("len", wordLength);
     params.set("ma", maxAttempts);
     params.set("lang", language);
-    router.push(`${pathname}?${params.toString()}`);
-  }, [wordLength, maxAttempts, language, pathname, router, searchParams]);
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [wordLength, maxAttempts, language, pathname, router]);
 
   useEffect(() => {
     dispatch(startGameAndFetch());
