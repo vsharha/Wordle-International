@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import {
     getLanguage,
     getMaxAttempts,
@@ -10,11 +9,15 @@ import {
     setWordLength, startGameAndFetch,
 } from "src/components/wordleSlice.js";
 import useKeyboard from "src/hooks/useKeyboard.js";
+import {usePathname, useSearchParams} from "next/navigation";
+import {useRouter} from "next/router";
 
 export default function useGame() {
     const dispatch = useDispatch();
 
-    const [searchParams, setSearchParams] = useSearchParams()
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
         const wordLength = searchParams.get("len")
@@ -32,15 +35,19 @@ export default function useGame() {
         if (language) {
             dispatch(setLanguage(language))
         }
-    }, []);
+    });
 
     const wordLength = useSelector(getWordLength)
     const maxAttempts = useSelector(getMaxAttempts)
     const language = useSelector(getLanguage)
 
     useEffect(()=>{
-        setSearchParams({len:wordLength, ma:maxAttempts, lang:language})
-    },[wordLength, maxAttempts, language, setSearchParams])
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("len", wordLength);
+        params.set("ma", maxAttempts);
+        params.set("lang", language);
+        router.push(`${pathname}?${params.toString()}`)
+    }, [wordLength, maxAttempts, language, pathname, router, searchParams])
 
     useEffect(() => {
         dispatch(startGameAndFetch())
