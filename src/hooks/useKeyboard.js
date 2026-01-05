@@ -1,38 +1,45 @@
+"use client";
+
 import { useEffect, useMemo } from "react";
-import { getLanguage, submitCurrentGuess, updateCurrentGuess } from "../wordleSlice.js";
+import {
+  getLanguage,
+  validateAndSubmitGuess,
+  updateCurrentGuess,
+} from "@/slices/wordleSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { getFlattenedLayout } from "../keyboard/getKeyboardLayout.js";
+import { getFlattenedLayout } from "@/components/keyboard/getKeyboardLayout.js";
 
 export default function useKeyboard() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const language = useSelector(getLanguage)
+  const language = useSelector(getLanguage);
 
-    const keys = useMemo(()=>getFlattenedLayout(language), [language])
+  const keys = useMemo(() => getFlattenedLayout(language), [language]);
 
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.defaultPrevented) return;
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.defaultPrevented) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
 
-            switch (e.key) {
-                case "Enter":
-                    dispatch(submitCurrentGuess());
-                    break;
-                case "Backspace":
-                    dispatch(updateCurrentGuess(e.key));
-                    break;
-                default:
-                    if (e.key.length === 1 && keys.includes(e.key.toLowerCase())) {
-                        dispatch(updateCurrentGuess(e.key.toLowerCase()));
-                        e.preventDefault();
-                    }
-                    break;
-            }
-        };
+      switch (e.key) {
+        case "Enter":
+          dispatch(validateAndSubmitGuess());
+          break;
+        case "Backspace":
+          dispatch(updateCurrentGuess(e.key));
+          break;
+        default:
+          if (e.key.length === 1 && keys.includes(e.key.toLowerCase())) {
+            dispatch(updateCurrentGuess(e.key.toLowerCase()));
+            e.preventDefault();
+          }
+          break;
+      }
+    };
 
-        window.addEventListener("keydown", handleKeyDown);
-        return () => {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [dispatch, keys]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [dispatch, keys]);
 }
