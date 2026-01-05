@@ -19,6 +19,7 @@ export default function useKeyboard() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.defaultPrevented) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
 
       switch (e.key) {
         case "Enter":
