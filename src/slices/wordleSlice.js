@@ -4,7 +4,7 @@ import GraphemeSplitter from "grapheme-splitter";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { languageCodeMapping } from "@/components/keyboard/getKeyboardLayout.js";
-import {getLanguages, getWordList} from "@/actions/randomWords";
+import {getLanguages, getWordList, getRandomWord} from "@/actions/randomWords";
 
 const splitter = new GraphemeSplitter()
 
