@@ -10,14 +10,24 @@ const splitter = new GraphemeSplitter();
 
 const datasetsCache: Map<string, Map<string, number>> = new Map();
 
-async function loadDataset(lang: string, pos: PartOfSpeech): Promise<Map<string, number>> {
+async function loadDataset(
+  lang: string,
+  pos: PartOfSpeech,
+): Promise<Map<string, number>> {
   const cacheKey = `${lang}-${pos}`;
 
   if (datasetsCache.has(cacheKey)) {
     return datasetsCache.get(cacheKey)!;
   }
 
-  const datasetPath = path.join(process.cwd(), "src", "actions", "datasets", lang, pos);
+  const datasetPath = path.join(
+    process.cwd(),
+    "src",
+    "actions",
+    "datasets",
+    lang,
+    pos,
+  );
 
   try {
     const content = await fs.readFile(datasetPath, "utf-8");
@@ -38,8 +48,18 @@ async function loadDataset(lang: string, pos: PartOfSpeech): Promise<Map<string,
   }
 }
 
-async function datasetExists(lang: string, pos: PartOfSpeech): Promise<boolean> {
-  const datasetPath = path.join(process.cwd(), "src", "actions", "datasets", lang, pos);
+async function datasetExists(
+  lang: string,
+  pos: PartOfSpeech,
+): Promise<boolean> {
+  const datasetPath = path.join(
+    process.cwd(),
+    "src",
+    "actions",
+    "datasets",
+    lang,
+    pos,
+  );
   try {
     await fs.access(datasetPath);
     return true;
@@ -55,7 +75,7 @@ function filterWords(
     maxLen?: number;
     minLen?: number;
     maxIndex?: number;
-  } = {}
+  } = {},
 ): string[] {
   const { minFreq, maxLen, minLen, maxIndex } = options;
 
@@ -67,11 +87,15 @@ function filterWords(
   }
 
   if (minLen !== undefined) {
-    words = words.filter(([word]) => splitter.splitGraphemes(word).length >= minLen);
+    words = words.filter(
+      ([word]) => splitter.splitGraphemes(word).length >= minLen,
+    );
   }
 
   if (maxLen !== undefined) {
-    words = words.filter(([word]) => splitter.splitGraphemes(word).length <= maxLen);
+    words = words.filter(
+      ([word]) => splitter.splitGraphemes(word).length <= maxLen,
+    );
   }
 
   if (maxIndex !== undefined) {
@@ -88,11 +112,13 @@ const getRandomWord = async (
   lang: string = "eng",
   wordLength?: number,
   minFreq?: number,
-  pos: PartOfSpeech = "N"
+  pos: PartOfSpeech = "N",
 ): Promise<string> => {
   const exists = await datasetExists(lang, pos);
   if (!exists) {
-    throw new Error(`Dataset not found for language: ${lang}, part of speech: ${pos}`);
+    throw new Error(
+      `Dataset not found for language: ${lang}, part of speech: ${pos}`,
+    );
   }
 
   const wordFreqMap = await loadDataset(lang, pos);
@@ -119,12 +145,13 @@ const getWordList = async (
   wordLength?: number,
   minFreq?: number,
   maxIndex?: number,
-  pos: PartOfSpeech = "N"
-
+  pos: PartOfSpeech = "N",
 ): Promise<string[]> => {
   const exists = await datasetExists(lang, pos);
   if (!exists) {
-    throw new Error(`Dataset not found for language: ${lang}, part of speech: ${pos}`);
+    throw new Error(
+      `Dataset not found for language: ${lang}, part of speech: ${pos}`,
+    );
   }
 
   const wordFreqMap = await loadDataset(lang, pos);
@@ -146,10 +173,16 @@ const isInWordList = async (
   word: string,
   lang: string = "eng",
   wordLength?: number,
-  pos: PartOfSpeech = "N"
+  pos: PartOfSpeech = "N",
 ): Promise<boolean> => {
   try {
-    const words = await getWordList(lang, wordLength, undefined, undefined, pos);
+    const words = await getWordList(
+      lang,
+      wordLength,
+      undefined,
+      undefined,
+      pos,
+    );
     const wordLower = word.toLowerCase();
     return words.some((dictWord) => dictWord.toLowerCase() === wordLower);
   } catch (error) {

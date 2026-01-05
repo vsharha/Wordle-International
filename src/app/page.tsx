@@ -22,7 +22,7 @@ export default function Home() {
           <RestartButton />
         </div>
       </div>
-      <WinScreen/>
+      <WinScreen />
     </main>
   );
 }

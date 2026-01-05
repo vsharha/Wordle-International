@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useRef } from "react";
 import toast, { Toaster, useToasterStore } from "react-hot-toast";
@@ -26,7 +26,8 @@ function useMaxToasts(max) {
     if (wordLoadingStatus === "loading") {
       if (!loadingToastId.current) {
         loadingToastId.current = toast.custom(
-          (t) => <CustomToast t={t} message={"Loading"} type={"loading"} />, { duration: Infinity }
+          (t) => <CustomToast t={t} message={"Loading"} type={"loading"} />,
+          { duration: Infinity },
         );
       }
     } else if (loadingToastId.current && wordLoadingStatus !== "loading") {

@@ -31,10 +31,20 @@ function Settings({ open, setIsOpen }) {
         <Toggle value={isDark} setValue={setIsDark}>
           Dark Theme
         </Toggle>
-        <Range min={2} max={8} value={wordLength} setValue={(v) => dispatch(updateWordLength(v))}>
+        <Range
+          min={2}
+          max={8}
+          value={wordLength}
+          setValue={(v) => dispatch(updateWordLength(v))}
+        >
           Word length
         </Range>
-        <Range min={4} max={8} value={maxAttempts} setValue={(v) => dispatch(updateMaxAttempts(v))}>
+        <Range
+          min={4}
+          max={8}
+          value={maxAttempts}
+          setValue={(v) => dispatch(updateMaxAttempts(v))}
+        >
           Max attempts
         </Range>
       </div>

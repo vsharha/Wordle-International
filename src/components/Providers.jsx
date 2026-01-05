@@ -1,14 +1,10 @@
-"use client"
+"use client";
 
 import store from "../slices/store";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 
-const Providers = ({children}) => {
-  return (
-    <Provider store={store}>
-      {children}
-    </Provider>
-  );
+const Providers = ({ children }) => {
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export default Providers;

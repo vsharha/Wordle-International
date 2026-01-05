@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <header className="border-b-1 w-screen border-border dark:border-border-dark flex items-center justify-between h-12 md:px-2">
-      <HeaderButton onClick={()=>setIsAboutOpen((open) => !open)}>
+      <HeaderButton onClick={() => setIsAboutOpen((open) => !open)}>
         <FaRegCircleQuestion size={20} />
       </HeaderButton>
       <div className="flex items-center justify-center h-full">

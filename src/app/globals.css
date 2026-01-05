@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -46,7 +46,8 @@
   }
 
   @keyframes pop-in {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
     }
     50% {
@@ -76,8 +77,12 @@
   }
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   --animate-shake: shake 0.25s linear;
@@ -88,36 +93,39 @@
 }
 
 @layer components {
-  body, html {
-    overflow-x: hidden
+  body,
+  html {
+    overflow-x: hidden;
   }
 
-  html, body, #root {
+  html,
+  body,
+  #root {
     height: 100%;
   }
 
   html {
-    @apply bg-back dark:bg-back-dark
+    @apply bg-back dark:bg-back-dark;
   }
 
   button {
-    @apply cursor-pointer
+    @apply cursor-pointer;
   }
 
   .input-element {
-    @apply w-full flex justify-between border-b border-border dark:border-border-dark py-3 items-center
+    @apply w-full flex justify-between border-b border-border dark:border-border-dark py-3 items-center;
   }
 
   .h-screen-dynamic {
-    height: 100dvh
+    height: 100dvh;
   }
 
   .max-h-screen-dynamic {
-    max-height: 100dvh
+    max-height: 100dvh;
   }
 
   .loader {
-    @apply border-5 border-neutral-300 border-t-neutral-500 rounded-full aspect-square h-full animate-spin dark:border-neutral-500 dark:border-t-neutral-300
+    @apply border-5 border-neutral-300 border-t-neutral-500 rounded-full aspect-square h-full animate-spin dark:border-neutral-500 dark:border-t-neutral-300;
   }
 }
 

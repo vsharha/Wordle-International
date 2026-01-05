@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
@@ -9,7 +9,7 @@ import { setKeyboardDisabled } from "@/slices/wordleSlice.js";
 function Modal({ children, open, onClose }) {
   const { visible, onFadeInEnd } = useFadeIn(open);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setKeyboardDisabled(open));

@@ -30,7 +30,11 @@ function Dropdown({ isOpen, setIsOpen, children, buttonRef }) {
   if (!visible) return null;
 
   return (
-    <div ref={ref} onAnimationEnd={onFadeInEnd} className={visible ? "animate-fade-in" : ""}>
+    <div
+      ref={ref}
+      onAnimationEnd={onFadeInEnd}
+      className={visible ? "animate-fade-in" : ""}
+    >
       {children}
     </div>
   );

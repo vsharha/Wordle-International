@@ -9,7 +9,7 @@ function SettingsButton() {
   return (
     <>
       <HeaderButton onClick={() => setIsOpen((open) => !open)}>
-        <IoMdSettings size={35}  />
+        <IoMdSettings size={35} />
       </HeaderButton>
       <Settings open={isOpen} setIsOpen={setIsOpen} />
     </>

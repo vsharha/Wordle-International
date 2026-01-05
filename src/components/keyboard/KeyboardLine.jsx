@@ -7,10 +7,17 @@ function KeyboardLine({ line }) {
 
   return (
     <div
-      className={twMerge("flex flex-row w-full justify-center justify-center flex-1")}
+      className={twMerge(
+        "flex flex-row w-full justify-center justify-center flex-1",
+      )}
     >
-      {line.map(({letter, width}, i) => (
-        <KeyboardButton letter={letter} color={colorMap[letter]} key={i} width={width}/>
+      {line.map(({ letter, width }, i) => (
+        <KeyboardButton
+          letter={letter}
+          color={colorMap[letter]}
+          key={i}
+          width={width}
+        />
       ))}
     </div>
   );
