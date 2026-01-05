@@ -4,7 +4,7 @@ import GraphemeSplitter from "grapheme-splitter";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { languageCodeMapping } from "@/components/keyboard/getKeyboardLayout.js";
-import {getLanguages, getWordList, getRandomWord} from "@/actions/randomWords";
+import {getLanguages, getRandomWord, isInWordList} from "@/actions/randomWords";
 
 const splitter = new GraphemeSplitter()
 
@@ -23,15 +23,14 @@ const initialState = {
     languageLoadingStatus: "idle",
     wordLoadingRequestId: undefined,
     languageList: ["eng"],
-    wordList: [],
 };
 
-export const fetchWordList = createAsyncThunk(
-    'wordle/fetchWordList',
+export const fetchRandomWord = createAsyncThunk(
+    'wordle/fetchRandomWord',
     async (_, {getState, rejectWithValue}) => {
         const {language, wordLength} = getState()["wordle"];
         try {
-            return getWordList(language, wordLength);
+            return await getRandomWord(language, wordLength);
         } catch (err) {
             return rejectWithValue(err.message)
         }
@@ -61,14 +60,48 @@ export const fetchLanguageList = createAsyncThunk(
     }
 );
 
-function includesLowerCase(word, list) {
-    for(let entry of list) {
-        if (word.toLowerCase() === entry.toLowerCase()) {
-            return true
+export const validateAndSubmitGuess = createAsyncThunk(
+    'wordle/validateAndSubmitGuess',
+    async (_, {getState, dispatch, rejectWithValue}) => {
+        const state = getState().wordle;
+        const {currentGuess, wordLength, language, status, keyboardDisabled, wordToGuess} = state;
+
+        // Check if keyboard is disabled
+        if (keyboardDisabled) {
+            return rejectWithValue("Keyboard is disabled");
+        }
+
+        // Check if word is loaded
+        if (!wordToGuess) {
+            return rejectWithValue("Still loading words");
+        }
+
+        // Check if game is still playing
+        if (status !== "playing") {
+            return rejectWithValue("Game is not in playing state");
+        }
+
+        // Check word length
+        if (splitter.splitGraphemes(currentGuess).length !== wordLength) {
+            return rejectWithValue("Not enough letters");
+        }
+
+        // Validate word with server action
+        try {
+            const isValid = await isInWordList(currentGuess, language, wordLength);
+            if (!isValid) {
+                return rejectWithValue("Not in word list");
+            }
+
+            // If validation passes, submit the guess
+            dispatch(submitCurrentGuess());
+            return currentGuess;
+        } catch (err) {
+            return rejectWithValue("Failed to validate word");
         }
     }
-    return false
-}
+);
+
 
 const wordleSlice = createSlice({
     name: "wordle",
@@ -77,10 +110,11 @@ const wordleSlice = createSlice({
         clearMessage(state) {
             state.message = initialState.message;
         },
-        startGame(state) {
+        startGame(state, action) {
             state.status = "playing";
-            state.wordToGuess = state.wordList[Math.floor(Math.random()
-                * state.wordList.length)];
+            if (action.payload) {
+                state.wordToGuess = action.payload;
+            }
         },
         updateCurrentGuess(state, action) {
             if (state.keyboardDisabled) {
@@ -101,32 +135,8 @@ const wordleSlice = createSlice({
             }
         },
         submitCurrentGuess(state) {
-            if (state.keyboardDisabled) {
-                return;
-            }
-
-            if(!state.wordToGuess) {
-                state.message = {message: "Still loading words", type: "error"};
-
-                return;
-            }
-
-            if (state.status !== "playing") {
-                return;
-            }
-
-            if (splitter.splitGraphemes(state.currentGuess).length !== state.wordLength) {
-                state.message = {message: "Not enough letters", type: "error"};
-
-                return;
-            }
-
-            if (!includesLowerCase(state.currentGuess, state.wordList)) {
-                state.message = {message: "Not in word list", type: "error"};
-
-                return;
-            }
-
+            // This reducer should only be called after validation passes
+            // Use validateAndSubmitGuess thunk for user-initiated submissions
             state.guesses.push(state.currentGuess);
             state.currentGuess = "";
 
@@ -182,30 +192,31 @@ const wordleSlice = createSlice({
                 languageList: state.languageList,
                 language: state.language,
                 wordLength: state.wordLength,
-                maxAttempts: state.maxAttempts,
-                wordList: state.wordList
+                maxAttempts: state.maxAttempts
             };
         },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWordList.pending, (state, action) => {
+            .addCase(fetchRandomWord.pending, (state, action) => {
                 state.wordLoadingStatus = "loading";
                 state.wordLoadingRequestId = action.meta.requestId;
             })
-            .addCase(fetchWordList.fulfilled, (state, action) => {
+            .addCase(fetchRandomWord.fulfilled, (state, action) => {
                 if (state.wordLoadingRequestId !== action.meta.requestId) return;
 
                 if (action.payload) {
-                    state.wordList = action.payload;
+                    state.wordToGuess = action.payload;
+                    state.status = "playing";
                 }
                 state.wordLoadingStatus = "idle"
                 state.wordLoadingRequestId = undefined;
             })
-            .addCase(fetchWordList.rejected, (state, action) => {
+            .addCase(fetchRandomWord.rejected, (state, action) => {
                 if (state.wordLoadingRequestId !== action.meta.requestId) return;
 
-                state.wordList = [];
+                state.wordToGuess = "";
+                state.message = {message: "Failed to load word", type: "error"};
 
                 state.wordLoadingStatus = "failed"
                 state.wordLoadingRequestId = undefined;
@@ -231,6 +242,10 @@ const wordleSlice = createSlice({
                 state.language = initialState.language;
 
                 state.languageLoadingStatus = "failed";
+            })
+            .addCase(validateAndSubmitGuess.rejected, (state, action) => {
+                // Show error message when validation fails
+                state.message = {message: action.payload, type: "error"};
             });
     }
 });
@@ -253,8 +268,7 @@ export const startGameAndFetch = () => async (dispatch, getState) => {
     if(languageList === initialState.languageList) {
         await dispatch(fetchLanguageList());
     }
-    await dispatch(fetchWordList());
-    dispatch({ type: "wordle/startGame" });
+    await dispatch(fetchRandomWord());
 }
 
 export const updateWordLength = (length) => (dispatch) => {
@@ -263,10 +277,10 @@ export const updateWordLength = (length) => (dispatch) => {
     dispatch(startGameAndFetch());
 };
 
-export const updateMaxAttempts = (attempts) => (dispatch) => {
+export const updateMaxAttempts = (attempts) => async (dispatch) => {
     dispatch({ type: "wordle/resetGame" });
     dispatch({ type: "wordle/setMaxAttempts", payload: Number(attempts) });
-    dispatch({ type: "wordle/startGame" });
+    await dispatch(fetchRandomWord());
 };
 
 export const updateLanguage = (language) => (dispatch) => {
