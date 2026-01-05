@@ -23,7 +23,7 @@ async function loadDataset(
   const datasetPath = path.join(
     process.cwd(),
     "src",
-    "actions",
+    "data",
     "datasets",
     lang,
     pos,
@@ -56,7 +56,7 @@ async function datasetExists(
   const datasetPath = path.join(
     process.cwd(),
     "src",
-    "actions",
+    "data",
     "datasets",
     lang,
     pos,
@@ -203,7 +203,7 @@ const isInWordList = async (
  * Get list of available languages for a given part of speech
  */
 const getLanguages = async (pos: PartOfSpeech = "N"): Promise<string[]> => {
-  const datasetsDir = path.join(process.cwd(), "src", "actions", "datasets");
+  const datasetsDir = path.join(process.cwd(), "src", "data", "datasets");
 
   try {
     const entries = await fs.readdir(datasetsDir, { withFileTypes: true });
