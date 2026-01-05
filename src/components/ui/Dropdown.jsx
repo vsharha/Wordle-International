@@ -13,7 +13,7 @@ function Dropdown({ isOpen, setIsOpen, children, buttonRef }) {
         !ref.current.contains(event.target) &&
         (!buttonRef?.current || !buttonRef.current.contains(event.target))
       )
-        setIsOpen((isOpen) => !isOpen);
+        setIsOpen(false);
     }
 
     if (isOpen) {

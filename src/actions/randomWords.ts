@@ -227,4 +227,3 @@ const getLanguages = async (pos: PartOfSpeech = "N"): Promise<string[]> => {
 };
 
 export { getLanguages, getRandomWord, getWordList, isInWordList };
-export type { PartOfSpeech };
