@@ -2,8 +2,8 @@ import { wordList } from "random-words";
 import GraphemeSplitter from "grapheme-splitter";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchLanguages, fetchWords } from "@/services/fetchRandomWords.js";
-import { languageCodeMapping } from "@/components/keyboard/getKeyboardLayout.js";
+import { fetchLanguages, fetchWords } from "src/services/fetchRandomWords.js";
+import { languageCodeMapping } from "src/components/keyboard/getKeyboardLayout.js";
 
 const splitter = new GraphemeSplitter()
 

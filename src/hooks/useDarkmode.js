@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsDarkMode, setDarkMode } from "src/components/wordleSlice.js";
+import { getIsDarkMode, setDarkMode } from "@/slices/wordleSlice.js";
 
 export default function useDarkmode() {
     const dispatch = useDispatch();

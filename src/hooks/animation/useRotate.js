@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGuesses, setKeyboardDisabled } from "../../components/wordleSlice.js";
+import { getGuesses, setKeyboardDisabled } from "@/slices/wordleSlice.js";
 
 export default function useRotate(word, wordIndex) {
     const [rotateIndex, setRotateIndex] = useState(null);

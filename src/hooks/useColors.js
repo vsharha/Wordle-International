@@ -1,5 +1,7 @@
+"use client"
+
 import { useSelector } from "react-redux";
-import { getGuesses, getWordToGuess } from "src/components/wordleSlice.js";
+import { getGuesses, getWordToGuess } from "@/slices/wordleSlice.js";
 
 function getColors(wordToGuess, word) {
     let colors = Array(word.length).fill("guessed");

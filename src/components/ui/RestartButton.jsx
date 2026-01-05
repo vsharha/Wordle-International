@@ -1,7 +1,9 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { twMerge } from "tailwind-merge";
-import { getStatus, resetGame, startGame } from "@/components/wordleSlice.js";
+import { getStatus, resetGame, startGame } from "@/slices/wordleSlice.js";
 import useFadeIn from "@/hooks/animation/useFadeIn.js";
 
 function RestartButton() {

@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { useDispatch } from "react-redux";
 import { IoBackspaceOutline } from "react-icons/io5";
 
-import { submitCurrentGuess, updateCurrentGuess } from "@/components/wordleSlice.js";
+import { submitCurrentGuess, updateCurrentGuess } from "@/slices/wordleSlice.js";
 import { themeColors } from "@/shared/themeColors.js";
 
 function KeyboardButton({ letter, color, width }) {

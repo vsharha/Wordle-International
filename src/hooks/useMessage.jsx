@@ -1,8 +1,10 @@
+"use client"
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearMessage, getMessage, getWordLoadingStatus } from "src/components/wordleSlice.js";
 import toast from "react-hot-toast";
-import CustomToast from "src/components/ui/CustomToast.jsx";
+import { clearMessage, getMessage, getWordLoadingStatus } from "@/slices/wordleSlice.js";
+import CustomToast from "@/components/ui/CustomToast.jsx";
 
 export default function useMessage() {
     const reduxMessage = useSelector(getMessage);

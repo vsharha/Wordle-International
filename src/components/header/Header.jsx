@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import HeaderButton from "@/components/header/HeaderButton";

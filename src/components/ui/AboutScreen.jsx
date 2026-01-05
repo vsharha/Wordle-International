@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Modal from "@/components/ui/Modal.jsx";
 import CloseButton from "@/components/ui/CloseButton.jsx";
-import { getMaxAttempts, getWordLength } from "@/components/wordleSlice.js";
+import { getMaxAttempts, getWordLength } from "@/slices/wordleSlice.js";
 import DisplayWord from "@/components/display/DisplayWord.jsx";
 
 function AboutScreen({open, setIsOpen}) {

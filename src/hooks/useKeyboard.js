@@ -1,7 +1,9 @@
+"use client"
+
 import { useEffect, useMemo } from "react";
-import { getLanguage, submitCurrentGuess, updateCurrentGuess } from "src/components/wordleSlice.js";
+import { getLanguage, submitCurrentGuess, updateCurrentGuess } from "@/slices/wordleSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { getFlattenedLayout } from "src/components/keyboard/getKeyboardLayout.js";
+import { getFlattenedLayout } from "@/components/keyboard/getKeyboardLayout.js";
 
 export default function useKeyboard() {
     const dispatch = useDispatch();

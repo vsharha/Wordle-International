@@ -6,7 +6,7 @@ import {
   getLanguageList,
   getLanguageLoadingStatus,
   updateLanguage,
-} from "@/components/wordleSlice.js";
+} from "@/slices/wordleSlice.js";
 import { languageCodeMapping } from "@/components/keyboard/getKeyboardLayout.js";
 import HeaderButton from "@/components/header/HeaderButton.jsx";
 import { FaCheck, FaChevronDown, FaGlobe } from "react-icons/fa6";

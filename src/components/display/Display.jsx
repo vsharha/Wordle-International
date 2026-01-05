@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import {getCurrentGuess, getGuesses, getMaxAttempts, getStatus} from "@/components/wordleSlice";
+import {getCurrentGuess, getGuesses, getMaxAttempts, getStatus} from "@/slices/wordleSlice";
 import GraphemeSplitter from "grapheme-splitter";
 import {ToasterWithMax} from "@/hooks/useMaxToasts";
 import DisplayWord from "@/components/display/DisplayWord";

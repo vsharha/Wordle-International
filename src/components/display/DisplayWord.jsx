@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { twMerge } from "tailwind-merge";
-import {getGuesses, getWordLength} from "@/components/wordleSlice";
+import {getGuesses, getWordLength} from "@/slices/wordleSlice";
 import useRotate from "@/hooks/animation/useRotate";
 import useShake from "@/hooks/animation/useShake";
 import usePopIn from "@/hooks/animation/usePopIn";

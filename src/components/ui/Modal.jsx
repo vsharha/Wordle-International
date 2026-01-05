@@ -1,8 +1,10 @@
+"use client"
+
 import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import { useDispatch } from "react-redux";
 import useFadeIn from "@/hooks/animation/useFadeIn.js";
-import { setKeyboardDisabled } from "@/components/wordleSlice.js";
+import { setKeyboardDisabled } from "@/slices/wordleSlice.js";
 
 function Modal({ children, open, onClose }) {
   const { visible, onFadeInEnd } = useFadeIn(open);

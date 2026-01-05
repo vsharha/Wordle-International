@@ -1,6 +1,8 @@
+"use client"
+
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getMessage } from "../../components/wordleSlice.js";
+import { getMessage } from "@/slices/wordleSlice.js";
 
 export default function useShake(isCurrent) {
     const reduxMessage = useSelector(getMessage);

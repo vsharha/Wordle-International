@@ -1,7 +1,9 @@
+"use client"
+
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import DisplayWord from "@/components/display/DisplayWord.jsx";
-import { getStatus, getWordToGuess } from "@/components/wordleSlice.js";
+import { getStatus, getWordToGuess } from "@/slices/wordleSlice.js";
 import CloseButton from "@/components/ui/CloseButton.jsx";
 import Modal from "@/components/ui/Modal.jsx";
 

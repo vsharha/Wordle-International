@@ -1,5 +1,9 @@
+"use client"
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import {usePathname, useSearchParams} from "next/navigation";
+import {useRouter} from "next/router";
 import {
     getLanguage,
     getMaxAttempts,
@@ -7,10 +11,8 @@ import {
     setLanguage,
     setMaxAttempts,
     setWordLength, startGameAndFetch,
-} from "src/components/wordleSlice.js";
-import useKeyboard from "src/hooks/useKeyboard.js";
-import {usePathname, useSearchParams} from "next/navigation";
-import {useRouter} from "next/router";
+} from "@/slices/wordleSlice.js";
+import useKeyboard from "@/hooks/useKeyboard.js";
 
 export default function useGame() {
     const dispatch = useDispatch();

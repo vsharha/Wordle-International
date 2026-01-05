@@ -7,7 +7,7 @@ import {
   getWordLength,
   updateMaxAttempts,
   updateWordLength,
-} from "@/components/wordleSlice.js";
+} from "@/slices/wordleSlice.js";
 import Modal from "@/components/ui/Modal.jsx";
 import CloseButton from "@/components/ui/CloseButton.jsx";
 
