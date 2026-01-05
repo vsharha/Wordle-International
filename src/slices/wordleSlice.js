@@ -1,8 +1,9 @@
+"use client"
+
 import GraphemeSplitter from "grapheme-splitter";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchLanguages, fetchWords } from "src/services/fetchRandomWords.js";
-import { languageCodeMapping } from "src/components/keyboard/getKeyboardLayout.js";
+import { languageCodeMapping } from "@/components/keyboard/getKeyboardLayout.js";
 import {getLanguages, getWordList} from "@/actions/randomWords";
 
 const splitter = new GraphemeSplitter()

@@ -1,8 +1,8 @@
 import { twMerge } from "tailwind-merge";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {getLanguage, getMaxAttempts, getWordLength} from "@/components/wordleSlice";
-import {themeColors} from "@/components/shared/themeColors";
+import {getLanguage, getMaxAttempts, getWordLength} from "@/slices/wordleSlice";
+import {themeColors} from "@/shared/themeColors";
 
 function DisplayLetter({ letter, color, popIn, rotate, onRotateEnd, skip }) {
   const [doPopIn, setDoPopIn] = useState(popIn);

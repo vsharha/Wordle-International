@@ -1,4 +1,5 @@
-import Image from "next/image";
+"use client";
+
 import useGame from "@/hooks/useGame";
 import Header from "@/components/header/Header";
 import Display from "@/components/display/Display";

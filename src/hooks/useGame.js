@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {usePathname, useSearchParams} from "next/navigation";
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import {
     getLanguage,
     getMaxAttempts,

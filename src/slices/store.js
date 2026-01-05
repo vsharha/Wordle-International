@@ -1,5 +1,7 @@
+"use client";
+
 import { configureStore } from "@reduxjs/toolkit";
-import wordleSlice from "@/components/wordleSlice.js";
+import wordleSlice from "@/slices/wordleSlice.js";
 
 const store = configureStore({
     reducer: {

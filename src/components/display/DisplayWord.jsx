@@ -5,6 +5,7 @@ import useRotate from "@/hooks/animation/useRotate";
 import useShake from "@/hooks/animation/useShake";
 import usePopIn from "@/hooks/animation/usePopIn";
 import {useColors} from "@/hooks/useColors";
+import DisplayLetter from "@/components/display/DisplayLetter";
 
 function DisplayWord({ word, wordIndex, skip, skipArray, skipWordLen, className }) {
   const wordLength = useSelector(getWordLength);
