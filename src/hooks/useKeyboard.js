@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo } from "react";
-import { getLanguage, submitCurrentGuess, updateCurrentGuess } from "@/slices/wordleSlice.js";
+import { getLanguage, validateAndSubmitGuess, updateCurrentGuess } from "@/slices/wordleSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getFlattenedLayout } from "@/components/keyboard/getKeyboardLayout.js";
 
@@ -18,7 +18,7 @@ export default function useKeyboard() {
 
             switch (e.key) {
                 case "Enter":
-                    dispatch(submitCurrentGuess());
+                    dispatch(validateAndSubmitGuess());
                     break;
                 case "Backspace":
                     dispatch(updateCurrentGuess(e.key));

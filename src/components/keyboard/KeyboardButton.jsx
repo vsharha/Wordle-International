@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 import { useDispatch } from "react-redux";
 import { IoBackspaceOutline } from "react-icons/io5";
 
-import { submitCurrentGuess, updateCurrentGuess } from "@/slices/wordleSlice.js";
+import { validateAndSubmitGuess, updateCurrentGuess } from "@/slices/wordleSlice.js";
 import { themeColors } from "@/shared/themeColors.js";
 
 function KeyboardButton({ letter, color, width }) {
@@ -16,7 +16,7 @@ function KeyboardButton({ letter, color, width }) {
     }
 
     if (isEnter) {
-      dispatch(submitCurrentGuess());
+      dispatch(validateAndSubmitGuess());
       return;
     }
 
