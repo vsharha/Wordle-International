@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGuesses, setKeyboardDisabled } from "@/slices/wordleSlice.js";
 
@@ -11,7 +11,7 @@ export default function useRotate(word, wordIndex) {
 
     const guesses = useSelector(getGuesses);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (guesses.length !== 0 && wordIndex === guesses.length - 1) {
             dispatch(setKeyboardDisabled(true));
             setRotateIndex(0);

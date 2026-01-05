@@ -1,7 +1,7 @@
 "use client"
 
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { getMessage } from "@/slices/wordleSlice.js";
 
 export default function useShake(isCurrent) {
@@ -9,7 +9,7 @@ export default function useShake(isCurrent) {
 
     const [shake, setShake] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (reduxMessage.message && reduxMessage.type === "error" && isCurrent) {
             setShake(true);
         }
