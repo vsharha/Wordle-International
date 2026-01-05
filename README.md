@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wordle International
 
-## Getting Started
+## Description
 
-First, run the development server:
+A clone of wordle with custom word lengths and attempt counts, 15 languages supported built using modern web development technologies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+You can try it [here](https://wordle-international.vercel.app/).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Details
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This started out as my attempt of making a faithful recreation of wordle which turned into an expanded and unlimited version of the game.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Libraries used:
+- **Redux toolkit**: global state management
+- **react-hot-toast**: custom notifications
+- **react-icons**: icons used throughout the project
+- **tailwindCSS**: styling
+- **simple-keyboard-layout**: keyboard layouts for the various languages available in the API
+- **random-words**: fallback random words source for when the API fails to respond
 
-## Learn More
+There are various custom hooks for game logic and animation.
 
-To learn more about Next.js, take a look at the following resources:
+### Language support
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The game currently supports 15 languages:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Armenian
+- Czech
+- English
+- Georgian
+- German
+- Greek
+- Hebrew
+- Hungarian
+- Macedonian
+- Polish
+- Russian
+- Spanish
+- Swedish
+- Turkish
+- Ukrainian
