@@ -6,7 +6,7 @@ function DarkmodeButton() {
   const { isDark, setIsDark } = useDarkmode();
 
   return (
-    <HeaderButton onClick={() => setIsDark(!isDark)}>
+    <HeaderButton onClick={() => setIsDark(!isDark)} className="aspect-square">
       {isDark ? <FaMoon size={24} /> : <FaSun size={24} />}
     </HeaderButton>
   );
