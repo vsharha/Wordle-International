@@ -1,50 +1,60 @@
+"use client";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
-    getLanguage,
-    getMaxAttempts,
-    getWordLength,
-    setLanguage,
-    setMaxAttempts,
-    setWordLength, startGameAndFetch,
-} from "../wordleSlice.js";
-import useKeyboard from "./useKeyboard.js";
+  getLanguage,
+  getMaxAttempts,
+  getWordLength,
+  setLanguage,
+  setMaxAttempts,
+  setWordLength,
+  startGameAndFetch,
+} from "@/slices/wordleSlice.js";
+import useKeyboard from "@/hooks/useKeyboard.js";
 
 export default function useGame() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const [searchParams, setSearchParams] = useSearchParams()
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-    useEffect(() => {
-        const wordLength = searchParams.get("len")
-        const maxAttempts = searchParams.get("ma")
-        const language = searchParams.get("lang")
+  useEffect(() => {
+    const wordLength = searchParams.get("len");
+    const maxAttempts = searchParams.get("ma");
+    const language = searchParams.get("lang");
 
-        if (wordLength) {
-            dispatch(setWordLength(Number(wordLength)))
-        }
+    if (wordLength) {
+      dispatch(setWordLength(Number(wordLength)));
+    }
 
-        if (maxAttempts) {
-            dispatch(setMaxAttempts(Number(maxAttempts)))
-        }
+    if (maxAttempts) {
+      dispatch(setMaxAttempts(Number(maxAttempts)));
+    }
 
-        if (language) {
-            dispatch(setLanguage(language))
-        }
-    }, []);
+    if (language) {
+      dispatch(setLanguage(language));
+    }
+  }, [dispatch, searchParams]);
 
-    const wordLength = useSelector(getWordLength)
-    const maxAttempts = useSelector(getMaxAttempts)
-    const language = useSelector(getLanguage)
+  const wordLength = useSelector(getWordLength);
+  const maxAttempts = useSelector(getMaxAttempts);
+  const language = useSelector(getLanguage);
 
-    useEffect(()=>{
-        setSearchParams({len:wordLength, ma:maxAttempts, lang:language})
-    },[wordLength, maxAttempts, language, setSearchParams])
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("len", wordLength);
+    params.set("ma", maxAttempts);
+    params.set("lang", language);
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [wordLength, maxAttempts, language, pathname, router]);
 
-    useEffect(() => {
-        dispatch(startGameAndFetch())
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(startGameAndFetch());
+  }, [dispatch]);
 
-    useKeyboard();
+  useKeyboard();
 }

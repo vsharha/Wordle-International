@@ -1,45 +1,36 @@
-# Wordle International
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Description
+## Getting Started
 
-A clone of wordle with custom word lengths and attempt counts, 15 languages supported built using modern web development technologies
+First, run the development server:
 
-You can try it [here](https://wordle-international.netlify.app/).
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Details
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This started out as my attempt of making a faithful recreation of wordle which turned into an expanded and unlimited version of the game. It utilises my custom [random word API](https://github.com/vsharha/random-words) built using FastAPI to provide support for all the languages.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-This is the repository for the front end of the game which is built in React.
+## Learn More
 
-#### Libraries used:
-- **Redux toolkit**: global state management
-- **react-hot-toast**: custom notifications
-- **react-icons**: icons used throughout the project
-- **react-router**: reading and applying url parameters
-- **tailwindCSS**: styling
-- **simple-keyboard-layout**: keyboard layouts for the various languages available in the API
-- **random-words**: fallback random words source for when the API fails to respond
+To learn more about Next.js, take a look at the following resources:
 
-There are various custom hooks for game logic and animation.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### Language support
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-The game currently supports 15 languages:
+## Deploy on Vercel
 
-- Armenian
-- Czech
-- English
-- Georgian
-- German
-- Greek
-- Hebrew
-- Hungarian
-- Macedonian
-- Polish
-- Russian
-- Spanish
-- Swedish
-- Turkish
-- Ukrainian
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

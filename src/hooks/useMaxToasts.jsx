@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import toast, { Toaster, useToasterStore } from "react-hot-toast";
-import useMessage from "./useMessage.jsx";
 import { useSelector } from "react-redux";
-import { getStatus, getWordLoadingStatus } from "../wordleSlice.js";
-import CustomToast from "../ui/CustomToast.jsx";
+import useMessage from "@/hooks/useMessage.jsx";
+import { getStatus, getWordLoadingStatus } from "@/slices/wordleSlice.js";
+import CustomToast from "@/components/ui/CustomToast.jsx";
 
 function useMaxToasts(max) {
   const { toasts } = useToasterStore();
@@ -24,7 +26,8 @@ function useMaxToasts(max) {
     if (wordLoadingStatus === "loading") {
       if (!loadingToastId.current) {
         loadingToastId.current = toast.custom(
-          (t) => <CustomToast t={t} message={"Loading"} type={"loading"} />, { duration: Infinity }
+          (t) => <CustomToast t={t} message={"Loading"} type={"loading"} />,
+          { duration: Infinity },
         );
       }
     } else if (loadingToastId.current && wordLoadingStatus !== "loading") {
