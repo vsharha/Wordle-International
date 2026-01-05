@@ -1,15 +1,11 @@
-import { wordList } from "random-words";
 import GraphemeSplitter from "grapheme-splitter";
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchLanguages, fetchWords } from "src/services/fetchRandomWords.js";
 import { languageCodeMapping } from "src/components/keyboard/getKeyboardLayout.js";
+import {getLanguages, getWordList} from "@/actions/randomWords";
 
 const splitter = new GraphemeSplitter()
-
-function getFilteredWordList(length) {
-    return wordList.filter((word)=>splitter.splitGraphemes(word).length===length)
-}
 
 const initialState = {
     guesses: [],
@@ -29,13 +25,12 @@ const initialState = {
     wordList: [],
 };
 
-
 export const fetchWordList = createAsyncThunk(
     'wordle/fetchWordList',
     async (_, {getState, rejectWithValue}) => {
         const {language, wordLength} = getState()["wordle"];
         try {
-            return fetchWords(language, wordLength);
+            return getWordList(language, wordLength);
         } catch (err) {
             return rejectWithValue(err.message)
         }
@@ -51,7 +46,7 @@ export const fetchLanguageList = createAsyncThunk(
                 return currentLanguages;
             }
 
-            const languages = await fetchLanguages();
+            const languages = await getLanguages();
             return languages
                 .filter((code)=>languageCodeMapping[code])
                 .sort((a, b) => {
@@ -209,7 +204,7 @@ const wordleSlice = createSlice({
             .addCase(fetchWordList.rejected, (state, action) => {
                 if (state.wordLoadingRequestId !== action.meta.requestId) return;
 
-                state.wordList = getFilteredWordList(state.wordLength);
+                state.wordList = [];
 
                 state.wordLoadingStatus = "failed"
                 state.wordLoadingRequestId = undefined;
