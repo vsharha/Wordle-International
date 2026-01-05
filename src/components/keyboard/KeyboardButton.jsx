@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { IoBackspaceOutline } from "react-icons/io5";
 
 import {
-  validateAndSubmitGuess,
   updateCurrentGuess,
+  submitCurrentGuess,
 } from "@/slices/wordleSlice.js";
 import { themeColors } from "@/shared/themeColors.js";
 
@@ -19,7 +19,7 @@ function KeyboardButton({ letter, color, width }) {
     }
 
     if (isEnter) {
-      dispatch(validateAndSubmitGuess());
+      dispatch(submitCurrentGuess());
       return;
     }
 

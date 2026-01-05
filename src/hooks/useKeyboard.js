@@ -3,8 +3,8 @@
 import { useEffect, useMemo } from "react";
 import {
   getLanguage,
-  validateAndSubmitGuess,
   updateCurrentGuess,
+  submitCurrentGuess,
 } from "@/slices/wordleSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getFlattenedLayout } from "@/components/keyboard/getKeyboardLayout.js";
@@ -23,7 +23,7 @@ export default function useKeyboard() {
 
       switch (e.key) {
         case "Enter":
-          dispatch(validateAndSubmitGuess());
+          dispatch(submitCurrentGuess());
           break;
         case "Backspace":
           dispatch(updateCurrentGuess(e.key));

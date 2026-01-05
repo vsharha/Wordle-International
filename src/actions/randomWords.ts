@@ -115,7 +115,9 @@ const getRandomWord = async (
   minFreq?: number,
   pos: PartOfSpeech = "N",
 ): Promise<string> => {
-  console.log(`getRandomWord called with: lang=${lang}, wordLength=${wordLength}, pos=${pos}`);
+  console.log(
+    `getRandomWord called with: lang=${lang}, wordLength=${wordLength}, pos=${pos}`,
+  );
 
   const exists = await datasetExists(lang, pos);
   if (!exists) {
@@ -164,14 +166,12 @@ const getWordList = async (
 
   const wordFreqMap = await loadDataset(lang, pos);
 
-  const words = filterWords(wordFreqMap, {
+  return filterWords(wordFreqMap, {
     minFreq,
     minLen: wordLength,
     maxLen: wordLength,
     maxIndex,
   });
-
-  return words;
 };
 
 /**

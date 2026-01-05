@@ -4,11 +4,14 @@ import { useSelector } from "react-redux";
 import { getGuesses, getWordToGuess } from "@/slices/wordleSlice.js";
 
 function getColors(wordToGuess, word) {
-  let colors = Array(word.length).fill("guessed");
-  let used = Array(word.length).fill(false);
+  // word can be either a string or an array of graphemes
+  const wordArray = Array.isArray(word) ? word : word.split("");
+
+  let colors = Array(wordArray.length).fill("guessed");
+  let used = Array(wordArray.length).fill(false);
 
   let wordToGuessLower = wordToGuess.toLowerCase();
-  let wordLower = word.toLowerCase();
+  let wordLower = wordArray.map((char) => char.toLowerCase());
 
   for (let i = 0; i < wordLower.length; i++) {
     if (wordLower.at(i) === wordToGuessLower.at(i)) {
@@ -29,7 +32,7 @@ function getColors(wordToGuess, word) {
     }
   }
 
-  return wordLower.split("").map((letter, i) => ({
+  return wordLower.map((letter, i) => ({
     letter,
     color: colors.at(i),
   }));
