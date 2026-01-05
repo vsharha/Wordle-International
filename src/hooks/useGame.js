@@ -38,7 +38,7 @@ export default function useGame() {
     if (language) {
       dispatch(setLanguage(language));
     }
-  });
+  }, [dispatch, searchParams]);
 
   const wordLength = useSelector(getWordLength);
   const maxAttempts = useSelector(getMaxAttempts);

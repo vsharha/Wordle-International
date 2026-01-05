@@ -44,6 +44,7 @@ async function loadDataset(
     datasetsCache.set(cacheKey, wordFreqMap);
     return wordFreqMap;
   } catch (error) {
+    console.error(`Failed to load dataset from ${datasetPath}:`, error);
     return new Map();
   }
 }
@@ -114,14 +115,17 @@ const getRandomWord = async (
   minFreq?: number,
   pos: PartOfSpeech = "N",
 ): Promise<string> => {
+  console.log(`getRandomWord called with: lang=${lang}, wordLength=${wordLength}, pos=${pos}`);
+
   const exists = await datasetExists(lang, pos);
   if (!exists) {
-    throw new Error(
-      `Dataset not found for language: ${lang}, part of speech: ${pos}`,
-    );
+    const error = `Dataset not found for language: ${lang}, part of speech: ${pos}`;
+    console.error(error);
+    throw new Error(error);
   }
 
   const wordFreqMap = await loadDataset(lang, pos);
+  console.log(`Loaded ${wordFreqMap.size} words from dataset`);
 
   const words = filterWords(wordFreqMap, {
     minFreq,
@@ -129,8 +133,12 @@ const getRandomWord = async (
     maxLen: wordLength,
   });
 
+  console.log(`After filtering: ${words.length} words match criteria`);
+
   if (words.length === 0) {
-    throw new Error(`No words found matching criteria for ${lang}`);
+    const error = `No words found matching criteria for ${lang}, wordLength=${wordLength}`;
+    console.error(error);
+    throw new Error(error);
   }
 
   const randomIndex = Math.floor(Math.random() * words.length);
