@@ -42,7 +42,7 @@ function RestartButton() {
       onClick={(e) => e.stopPropagation()}
     >
       <button
-        className="uppercase text-2xl font-bold border-2 border-black w-fit p-5 rounded-lg cursor-pointer bg-back dark:bg-back-dark mb-15"
+        className="uppercase text-2xl font-bold border-2 dark:border-border-dark border-border w-fit p-5 rounded-lg cursor-pointer bg-back dark:bg-back-dark mb-15 text-font dark:text-font-dark"
         onClick={handleClick}
       >
         Restart
