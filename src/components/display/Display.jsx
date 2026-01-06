@@ -37,7 +37,7 @@ function Display() {
   const normalised = getNormalisedArray(guesses);
 
   return (
-    <div className="flex flex-col w-full gap-1.5 justify-center h-full md:h-fit relative p-2 md:p-8">
+    <div className="flex flex-col w-full gap-1.5 justify-center h-full md:h-fit relative my-2 md:my-8">
       <ToasterWithMax
         max={3}
         position="top-center"

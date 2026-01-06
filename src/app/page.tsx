@@ -17,7 +17,7 @@ export default function Home() {
         <div className="flex-1 md:flex-none z-5">
           <Display />
         </div>
-        <div className="h-50 relative z-4 py-2">
+        <div className="min-h-50 relative z-4 py-2">
           <Keyboard />
           <RestartButton />
         </div>
