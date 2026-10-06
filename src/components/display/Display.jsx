@@ -21,9 +21,9 @@ function Display() {
   function getNormalisedArray(array) {
     if (status === "lost") return array;
 
-    let result = [...array, currentGuess].map((guess) =>
-      splitter.splitGraphemes(guess),
-    );
+    const rows =
+      array.length < maxAttempts ? [...array, currentGuess] : [...array];
+    let result = rows.map((guess) => splitter.splitGraphemes(guess));
 
     for (let i = 0; i <= maxAttempts - array.length - 2; i++) {
       result.push("");
